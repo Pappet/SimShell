@@ -1,11 +1,11 @@
 import pygame
 import utility.color as Color
-from core.config import FONT_SIZE, FONT_NAME
+import core.config as Config
 
 class Label:
     def __init__(self, text, position):
         self.text = text
-        self.font = pygame.font.SysFont(FONT_NAME, FONT_SIZE)
+        self.font = pygame.font.SysFont(Config.FONT_NAME, Config.FONT_SIZE)
         self.color = Color.BLACK
         text_surf = self.font.render(self.text, True, self.color)
         self.rect = text_surf.get_rect(topleft=position)

@@ -10,7 +10,7 @@ It is the entry point for the game application.
 
 import pygame
 import sys
-from core.config import SCREEN_WIDTH, SCREEN_HEIGHT, TITLE, FONT_NAME, DEBUG_FONT_SIZE
+import core.config as Config
 import utility.color as Color
 from core.scene_manager import SceneManager
 from core.context import GameContext
@@ -19,11 +19,11 @@ from core.debug_console import DebugConsole
 
 class GameApp:
     def __init__(self):
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        pygame.display.set_caption(TITLE)
+        self.screen = pygame.display.set_mode((Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT))
+        pygame.display.set_caption(Config.TITLE)
         self.clock = pygame.time.Clock()
 
-        self.font = pygame.font.SysFont(FONT_NAME, DEBUG_FONT_SIZE)
+        self.font = pygame.font.SysFont(Config.FONT_NAME, Config.DEBUG_FONT_SIZE)
         self.debug_console = DebugConsole(self.font)
 
         self.context = GameContext(self.debug_console)

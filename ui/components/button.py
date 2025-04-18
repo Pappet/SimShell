@@ -1,5 +1,5 @@
 import pygame
-from core.config import FONT_SIZE, FONT_NAME
+import core.config as Config
 import utility.color as Color
 
 
@@ -8,7 +8,7 @@ class Button:
         self.rect = pygame.Rect(rect)
         self.text = text
         self.callback = callback
-        self.font = pygame.font.SysFont(FONT_NAME, FONT_SIZE)
+        self.font = pygame.font.SysFont(Config.FONT_NAME, Config.FONT_SIZE)
         self.hovered = False
 
     def draw(self, surface):

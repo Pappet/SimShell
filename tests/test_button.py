@@ -3,7 +3,6 @@
 import pytest
 import pygame
 from ui.components.button import Button
-from core.config import FONT_NAME, FONT_SIZE
 
 pygame.init()
 
