@@ -46,7 +46,7 @@ class DebugConsole:
         # Surface mit Alphakanal erstellen
         bg_surf = pygame.Surface((bg_width, bg_height), pygame.SRCALPHA)
         # Füllfarbe mit Alpha (z.B. schwarz mit 128/255 Alpha)
-        bg_surf.fill((0, 0, 0, 128))
+        bg_surf.fill(Color.TRANSPARENT_50)
 
         # Hintergrund auf das Ziel‑Surface blitten
         surface.blit(bg_surf, (x - padding, y - padding))

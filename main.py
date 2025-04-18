@@ -8,15 +8,28 @@ import utility.color as Color
 from logging.handlers import RotatingFileHandler
 
 def setup_logging(debug_console: DebugConsole):
-    # 2) Root‑Logger anlegen und Level setzen
-    root = logging.getLogger()
-    root.setLevel(logging.DEBUG)  # niedrigstes Level, damit alle Handler ihre Level auswerten können
+    """
+    Configures the application's logging system with two handlers:
+    
+    1. A rotating file handler that logs all DEBUG and higher messages to 'simshell.log'.
+       This helps with persistent logging and debugging during development or after crashes.
+    
+    2. A custom debug console handler that logs INFO and higher messages to the in-game
+       debug console for real-time feedback during gameplay.
 
-    # 3) Alle vorbestehenden Handler entfernen (z.B. basicConfig‑Handler)
+    Parameters:
+        debug_console (DebugConsole): The in-game console object that displays log messages.
+    """
+
+    # Configure the root logger to handle all log messages from the application
+    root = logging.getLogger()
+    root.setLevel(logging.DEBUG)  # Allow all messages to pass to the handlers
+
+    # Remove any existing handlers (e.g., from basicConfig or previous setup)
     for h in root.handlers[:]:
         root.removeHandler(h)
 
-    # 4) File‑Handler (DEBUG → simshell.log)
+    # Log all DEBUG and higher messages to a rotating file log
     file_handler = RotatingFileHandler("simshell.log", maxBytes=1_000_000, backupCount=3)
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(
@@ -24,20 +37,23 @@ def setup_logging(debug_console: DebugConsole):
     )
     root.addHandler(file_handler)
 
-    # 5) DebugConsole‑Handler (INFO → In‑Game‑Console)
+    # Log INFO and higher messages to the in-game debug console
     console_handler = DebugConsoleHandler(debug_console)
-    console_handler.setLevel(logging.INFO)
+    console_handler.setLevel(logging.DEBUG)
     console_handler.setFormatter(
         logging.Formatter("%(levelname)-5s | %(message)s")
     )
     root.addHandler(console_handler)
 
 if __name__ == "__main__":
+    # Initialize Pygame and create a debug console
     pygame.init()
     font = pygame.font.SysFont(Config.DEBUG_FONT_NAME, Config.DEBUG_FONT_SIZE)
     debug_console = DebugConsole(font, max_lines=10, color=Color.WHITE)
-    
+
+    # Set up logging to file and debug console
     setup_logging(debug_console)
 
-    app = GameApp(debug_console=debug_console)  # GameApp speichert die Referenz
+    # Create and run the game application
+    app = GameApp(debug_console=debug_console)
     app.run()

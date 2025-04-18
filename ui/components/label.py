@@ -6,7 +6,7 @@ class Label:
     def __init__(self, text, position):
         self.text = text
         self.font = pygame.font.SysFont(Config.FONT_NAME, Config.FONT_SIZE)
-        self.color = Color.BLACK
+        self.color = Color.FOREGROUND
         text_surf = self.font.render(self.text, True, self.color)
         self.rect = text_surf.get_rect(topleft=position)
 

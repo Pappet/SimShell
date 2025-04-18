@@ -36,7 +36,7 @@ class GameApp:
 
     def run(self):
         while self.running:
-            self.screen.fill(Color.WHITE)
+            self.screen.fill(Color.BACKGROUND)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):

@@ -9,7 +9,7 @@ class ProgressBar:
         self.color = color
 
     def draw(self, surface):
-        pygame.draw.rect(surface, Color.BLACK, self.rect, 2)
+        pygame.draw.rect(surface, Color.FOREGROUND, self.rect, 2)
         fill_width = int((self.current_value / self.max_value) * self.rect.width)
         fill_rect = pygame.Rect(self.rect.x, self.rect.y, fill_width, self.rect.height)
         pygame.draw.rect(surface, self.color, fill_rect)

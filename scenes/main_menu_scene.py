@@ -23,5 +23,5 @@ class MainMenuScene:
         self.ui.update(mouse_pos)
 
     def draw(self, surface):
-        surface.fill(Color.WHITE)
+        surface.fill(Color.BACKGROUND)
         self.ui.draw(surface)

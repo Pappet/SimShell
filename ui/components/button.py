@@ -12,10 +12,10 @@ class Button:
         self.hovered = False
 
     def draw(self, surface):
-        color = Color.DARK_GRAY if self.hovered else Color.GRAY
+        color = Color.BUTTON_DEFAULT if self.hovered else Color.BUTTON_HOVER
         pygame.draw.rect(surface, color, self.rect)
-        pygame.draw.rect(surface, Color.BLACK, self.rect, 2)
-        text_surf = self.font.render(self.text, True, Color.BLACK)
+        pygame.draw.rect(surface, Color.BORDER, self.rect, 2)
+        text_surf = self.font.render(self.text, True, Color.BUTTON_TEXT)
         text_rect = text_surf.get_rect(center=self.rect.center)
         surface.blit(text_surf, text_rect)
 
