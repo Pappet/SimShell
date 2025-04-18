@@ -2,6 +2,7 @@
 
 from ui.components.button import Button
 from ui.components.label import Label
+from ui.components.panel import Panel
 from ui.components.progressbar import ProgressBar
 from ui.ui_manager import UIManager
 from ui.layout.horizontal import HorizontalLayout
@@ -12,7 +13,7 @@ from core.events.event_types import EventType
 from themes.theme_manager import get_color
 
     
-def create_game_ui(stat_manager, event_manager, switch_scene_callback, debug_console):
+def create_game_ui(stat_manager, event_manager, switch_scene_callback):
     ui = UIManager()
     
     energy_key = "energy"
@@ -31,14 +32,22 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, debug_con
         "-10",
         lambda: Callbacks.modify_stat(stat_manager, energy_key, -10)
     )
-    row_energy = HorizontalLayout(x=0, y=0, spacing=15, debug_console=debug_console)
+    row_energy = HorizontalLayout(x=0, y=0, spacing=15)
     row_energy.add(button_sub)
     row_energy.add(energy_bar)
     row_energy.add(button_add)
-    
-    
+
+    # Panel für Energy
+    energy_panel = Panel(x=10, y=10, width=340, height=100,
+                         background_key='panel_bg',
+                         border_key='border')
+    panel_col_energy = VerticalLayout(x=0, y=0, spacing=15, align="center")
+    panel_col_energy.add(energy_label)
+    panel_col_energy.add(row_energy)
+    energy_panel.add(panel_col_energy)
+
     #Health UI Elements
-    health_label = Label(f"{health_key.capitalize()} {stat_manager.get(health_key)}", (0, 0))
+    health_label = Label(f"{health_key.capitalize()}: {stat_manager.get(health_key)}", (0, 0))
     health_bar = ProgressBar(0, 0, 200, 30, stat_manager.get(health_key), stat_manager.get_max(health_key), get_color("health"))
     button_add_health = Button(
         (0, 0, 100, 50),
@@ -51,30 +60,39 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, debug_con
         lambda: Callbacks.modify_stat(stat_manager, health_key, -10)
     )
 
+    row_health = HorizontalLayout(x=0, y=0, spacing=15)
+    row_health.add(button_sub_health)
+    row_health.add(health_bar)
+    row_health.add(button_add_health)
+
+    # Panel für Health
+    health_panel = Panel(x=10, y=120, width=340, height=100,
+                         background_key='panel_bg',
+                         border_key='border')
+    panel_col_health = VerticalLayout(x=0, y=0, spacing=15, align="center")
+    panel_col_health.add(health_label)
+    panel_col_health.add(row_health)
+    health_panel.add(panel_col_health)
+
     button_back = Button(
         (0, 0, 200, 40),
         "Zurück zum Menü",
         lambda: switch_scene_callback("menu")
     )
-    row_health = HorizontalLayout(x=0, y=0, spacing=15, debug_console=debug_console)
-    row_health.add(button_sub_health)
-    row_health.add(health_bar)
-    row_health.add(button_add_health)
 
     # Creating the main layout
     # Vertical layout for the entire UI
-    column = VerticalLayout(x=0, y=200, spacing=20, debug_console=debug_console)
-    column.add(energy_label)
-    column.add(row_energy)
-    column.add(health_label)
-    column.add(row_health)    
+    column = VerticalLayout(x=200, y=200, spacing=20, align="center")
+    column.add(energy_panel)
+    column.add(health_panel)
     column.add(button_back)
+
+    ui.add(energy_panel)
+    ui.add(health_panel)
+    ui.add(button_back)
 
     # Registering event handlers for energy and health changes
     event_manager.register(EventType.ENERGY_CHANGED, lambda new_value: EventHandlers.update_stat_ui(new_value, energy_bar, energy_label, energy_key))
     event_manager.register(EventType.HEALTH_CHANGED, lambda new_value: EventHandlers.update_stat_ui(new_value, health_bar, health_label, health_key))
 
-    # Adding the main layout to the UI manager
-    for element in column.get_elements():
-        ui.add(element)
     return ui

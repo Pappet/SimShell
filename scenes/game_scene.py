@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 class GameScene:
     def __init__(self, context, switch_scene_callback):
         self.context = context
-        self.ui = create_game_ui(self.context.stat_manager, self.context.event_manager, switch_scene_callback, self.context.debug_console)
+        self.ui = create_game_ui(self.context.stat_manager, self.context.event_manager, switch_scene_callback)
         logger.debug("GameScene initialized.")
 
     def handle_event(self, event):

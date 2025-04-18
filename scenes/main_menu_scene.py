@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 class MainMenuScene:
     def __init__(self, context, switch_scene_callback, exit_callback):
         self.context = context
-        self.ui = create_main_menu_ui(switch_scene_callback, exit_callback, self.context.debug_console)
+        self.ui = create_main_menu_ui(switch_scene_callback, exit_callback)
         logger.debug("MainMenuScene initialized.")
 
     def handle_event(self, event):

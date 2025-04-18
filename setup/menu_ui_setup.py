@@ -3,13 +3,12 @@
 from ui.components.button import Button
 from ui.ui_manager import UIManager
 from ui.layout.vertical import VerticalLayout
-from themes.theme_manager import set_theme
 import core.events.callbacks as Callbacks
 
-def create_main_menu_ui(switch_scene_callback, exit_callback, debug_console):
+def create_main_menu_ui(switch_scene_callback, exit_callback):
     ui = UIManager()
 
-    layout = VerticalLayout(x=300, y=200, spacing=50, debug_console=debug_console)
+    layout = VerticalLayout(x=300, y=200, spacing=50)
 
     start_button = Button(
         (0, 0, 200, 50),
