@@ -9,9 +9,9 @@ from ui.layout.vertical import VerticalLayout
 import core.events.callbacks as Callbacks
 import core.events.event_handlers as EventHandlers
 from core.events.event_types import EventType
-import utility.color as Color
+from themes.theme_manager import get_color
 
-
+    
 def create_game_ui(stat_manager, event_manager, switch_scene_callback, debug_console):
     ui = UIManager()
     
@@ -20,7 +20,7 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, debug_con
 
     #Energy UI Elements
     energy_label = Label(f"{energy_key.capitalize()}: {stat_manager.get(energy_key)}", (0, 0))
-    energy_bar = ProgressBar(0, 0, 200, 30, stat_manager.get(energy_key), stat_manager.get_max(energy_key), Color.GREEN)
+    energy_bar = ProgressBar(0, 0, 200, 30, stat_manager.get(energy_key), stat_manager.get_max(energy_key), get_color("energy"))
     button_add = Button(
         (0, 0, 100, 50),
         "+10",
@@ -39,7 +39,7 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, debug_con
     
     #Health UI Elements
     health_label = Label(f"{health_key.capitalize()} {stat_manager.get(health_key)}", (0, 0))
-    health_bar = ProgressBar(0, 0, 200, 30, stat_manager.get(health_key), stat_manager.get_max(health_key), Color.RED)
+    health_bar = ProgressBar(0, 0, 200, 30, stat_manager.get(health_key), stat_manager.get_max(health_key), get_color("health"))
     button_add_health = Button(
         (0, 0, 100, 50),
         "+10",

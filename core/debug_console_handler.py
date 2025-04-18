@@ -1,5 +1,4 @@
 import logging
-import utility.color as Color
 from .debug_console import DebugConsole  # sofern in derselben Package
 
 class DebugConsoleHandler(logging.Handler):

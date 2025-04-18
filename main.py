@@ -4,7 +4,7 @@ import core.config as Config
 from core.debug_console import DebugConsole
 from core.debug_console_handler import DebugConsoleHandler
 from core.app import GameApp
-import utility.color as Color
+from themes.theme_manager import get_color
 from logging.handlers import RotatingFileHandler
 
 def setup_logging(debug_console: DebugConsole):
@@ -39,7 +39,7 @@ def setup_logging(debug_console: DebugConsole):
 
     # Log INFO and higher messages to the in-game debug console
     console_handler = DebugConsoleHandler(debug_console)
-    console_handler.setLevel(logging.DEBUG)
+    console_handler.setLevel(logging.INFO)
     console_handler.setFormatter(
         logging.Formatter("%(levelname)-5s | %(message)s")
     )
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     # Initialize Pygame and create a debug console
     pygame.init()
     font = pygame.font.SysFont(Config.DEBUG_FONT_NAME, Config.DEBUG_FONT_SIZE)
-    debug_console = DebugConsole(font, max_lines=10, color=Color.WHITE)
+    debug_console = DebugConsole(font, max_lines=10, color=get_color("foreground_console"))
 
     # Set up logging to file and debug console
     setup_logging(debug_console)

@@ -8,11 +8,11 @@ It can be drawn on the screen and supports a maximum number of lines to display.
 '''
 
 import pygame
-import utility.color as Color
+from themes.theme_manager import get_color
 
 
 class DebugConsole:
-    def __init__(self, font: pygame.font.Font, max_lines=10, color=Color.BLACK):
+    def __init__(self, font: pygame.font.Font, max_lines=10, color=get_color("foreground_console")):
         self.font = font
         self.logs = []
         self.max_lines = max_lines
@@ -31,6 +31,7 @@ class DebugConsole:
 
     def draw(self, surface, pos=(10, 10)):
         """Draws the console with a semi-transparent background."""
+        self.color = get_color("foreground_console")
         x, y = pos
 
         # Maße für den Hintergrund ermitteln
@@ -46,7 +47,7 @@ class DebugConsole:
         # Surface mit Alphakanal erstellen
         bg_surf = pygame.Surface((bg_width, bg_height), pygame.SRCALPHA)
         # Füllfarbe mit Alpha (z.B. schwarz mit 128/255 Alpha)
-        bg_surf.fill(Color.TRANSPARENT_50)
+        bg_surf.fill(get_color("background_console"))
 
         # Hintergrund auf das Ziel‑Surface blitten
         surface.blit(bg_surf, (x - padding, y - padding))

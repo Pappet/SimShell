@@ -3,6 +3,8 @@
 from ui.components.button import Button
 from ui.ui_manager import UIManager
 from ui.layout.vertical import VerticalLayout
+from themes.theme_manager import set_theme
+import core.events.callbacks as Callbacks
 
 def create_main_menu_ui(switch_scene_callback, exit_callback, debug_console):
     ui = UIManager()
@@ -15,6 +17,12 @@ def create_main_menu_ui(switch_scene_callback, exit_callback, debug_console):
         lambda: switch_scene_callback("game")
     )
 
+    theme_button = Button(
+        (0, 0, 200, 50),
+        "Thema wechseln",
+        lambda: Callbacks.toggle_theme()
+    )
+
     exit_button = Button(
         (0, 0, 200, 50),
         "Beenden",
@@ -22,6 +30,7 @@ def create_main_menu_ui(switch_scene_callback, exit_callback, debug_console):
     )
 
     layout.add(start_button)
+    layout.add(theme_button)
     layout.add(exit_button)
 
     for element in layout.get_elements():

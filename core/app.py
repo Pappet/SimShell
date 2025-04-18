@@ -8,13 +8,15 @@ It also initializes the game context and scene manager.
 It is the entry point for the game application.
 '''
 
-import pygame
 import sys
+import logging
+import pygame
 import core.config as Config
-import utility.color as Color
+from themes.theme_manager import get_color
 from core.scene_manager import SceneManager
 from core.context import GameContext
-import logging
+from themes.theme_manager import get_color, set_theme
+
 
 logger = logging.getLogger(__name__)
 
@@ -34,10 +36,11 @@ class GameApp:
         self.debug = False
         self.scene_manager.switch_scene("menu")
 
+        # Set theme on startup
+        set_theme("dark")
+
     def run(self):
         while self.running:
-            self.screen.fill(Color.BACKGROUND)
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                     self.exit_game()

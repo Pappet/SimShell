@@ -1,10 +1,10 @@
 # scenes/main_menu_scene.py
 
 import pygame
-import utility.color as Color
+import logging
+from themes.theme_manager import get_color
 from core.scene_registry import scene
 from setup.menu_ui_setup import create_main_menu_ui
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -23,5 +23,5 @@ class MainMenuScene:
         self.ui.update(mouse_pos)
 
     def draw(self, surface):
-        surface.fill(Color.BACKGROUND)
+        surface.fill(get_color("background"))
         self.ui.draw(surface)
