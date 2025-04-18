@@ -10,6 +10,7 @@ It can be drawn on the screen and supports a maximum number of lines to display.
 import pygame
 import utility.color as Color
 
+
 class DebugConsole:
     def __init__(self, font: pygame.font.Font, max_lines=10, color=Color.BLACK):
         self.font = font

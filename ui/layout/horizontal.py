@@ -1,4 +1,7 @@
 import pygame
+import logging
+
+logger = logging.getLogger(__name__)
 
 class HorizontalLayout:
     def __init__(self, x, y, spacing=10, debug_console=None):
@@ -17,9 +20,8 @@ class HorizontalLayout:
             element.set_position(self.x + total_width, self.y)
         else:
             element.rect.topleft = (self.x + total_width, self.y)
-
-        if self.debug_console:
-            self.debug_console.log(f"Adding element at position: {element.rect.topleft}")
+        
+        logger.debug(f"Adding element at position: {element.rect.topleft}")
         self.elements.append(element)
         self.recalculate_rect()
 
@@ -30,6 +32,7 @@ class HorizontalLayout:
         for el in self.elements:
             total += el.rect.width
         total += self.spacing * len(self.elements)
+        logger.debug(f"Accumulated width: {total}")
         return total
 
     def recalculate_rect(self):
@@ -38,6 +41,7 @@ class HorizontalLayout:
         height = max((el.rect.height for el in self.elements), default=0)
         self.rect.width = width
         self.rect.height = height
+        logger.debug(f"Recalculated layout rect: {self.rect}")
 
     def set_position(self, x, y):
         # Verschiebt das Layout an die neue Position und positioniert alle enthaltenen
@@ -53,6 +57,8 @@ class HorizontalLayout:
                 el.rect.topleft = (x + current_x_offset, y)
             current_x_offset += el.rect.width + self.spacing
 
+        logger.debug(f"Set layout position to: {self.rect.topleft}")
+
     def get_elements(self):
         # Gibt alle Elemente zurück; bei verschachtelten Layouts werden
         # deren interne Elemente ebenfalls flach zurückgegeben.
@@ -62,4 +68,5 @@ class HorizontalLayout:
                 flat.extend(el.get_elements())
             else:
                 flat.append(el)
+        logger.debug(f"Flattened elements: {flat}")
         return flat

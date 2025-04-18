@@ -1,4 +1,7 @@
 import pygame
+import logging
+
+logger = logging.getLogger(__name__)
 
 class VerticalLayout:
     def __init__(self, x, y, spacing=10, debug_console=None):
@@ -19,9 +22,8 @@ class VerticalLayout:
             element.set_position(self.x, self.y + total_height)
         else:
             element.rect.topleft = (self.x, self.y + total_height)
-
-        if self.debug_console:
-            self.debug_console.log(f"Adding element at position: {element.rect.topleft}")
+        
+        logger.debug(f"Adding element at position: {element.rect.topleft}")
         self.elements.append(element)
         self.recalculate_rect()
 
@@ -32,6 +34,8 @@ class VerticalLayout:
             total += el.rect.height
         # Addiere das Spacing zwischen den Elementen (nicht nach dem letzten Element)
         total += self.spacing * len(self.elements)
+        logger.debug(f"Accumulated height: {total}")
+        
         return total
 
     def recalculate_rect(self):
@@ -40,6 +44,7 @@ class VerticalLayout:
         height = self._accumulated_height() - (self.spacing if self.elements else 0)
         self.rect.width = width
         self.rect.height = height
+        logger.debug(f"Recalculated layout rect: {self.rect}")
 
     def get_elements(self):
         flat = []
@@ -48,6 +53,7 @@ class VerticalLayout:
                 flat.extend(el.get_elements())
             else:
                 flat.append(el)
+        logger.debug(f"Getting elements: {flat}")
         return flat
 
     def set_position(self, x, y):
@@ -63,3 +69,4 @@ class VerticalLayout:
                 el.rect.topleft = (x, y + current_y_offset)
             # Aktualisiere den Offset für das nächste Element.
             current_y_offset += el.rect.height + self.spacing
+        logger.debug(f"Set layout position to: {self.rect.topleft}")

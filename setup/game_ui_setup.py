@@ -20,8 +20,7 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, debug_con
 
     #Energy UI Elements
     energy_label = Label(f"{energy_key.capitalize()}: {stat_manager.get(energy_key)}", (0, 0))
-    energy_bar = ProgressBar(0, 0, 200, 30, stat_manager.get_max(energy_key), Color.GREEN)
-    energy_bar.set_value(stat_manager.get(energy_key))
+    energy_bar = ProgressBar(0, 0, 200, 30, stat_manager.get(energy_key), stat_manager.get_max(energy_key), Color.GREEN)
     button_add = Button(
         (0, 0, 100, 50),
         "+10",
@@ -40,8 +39,7 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, debug_con
     
     #Health UI Elements
     health_label = Label(f"{health_key.capitalize()} {stat_manager.get(health_key)}", (0, 0))
-    health_bar = ProgressBar(0, 0, 200, 30, stat_manager.get_max(health_key), Color.RED)
-    health_bar.set_value(stat_manager.get(health_key))
+    health_bar = ProgressBar(0, 0, 200, 30, stat_manager.get(health_key), stat_manager.get_max(health_key), Color.RED)
     button_add_health = Button(
         (0, 0, 100, 50),
         "+10",

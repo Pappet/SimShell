@@ -1,0 +1,285 @@
+20:48:49 DEBUG [core.stat_manager] StatManager initialized.
+20:48:49 DEBUG [core.stat_manager] Stats: {'energy': 100, 'health': 50}
+20:48:49 DEBUG [core.stat_manager] Event map: {'energy': <EventType.ENERGY_CHANGED: 1>, 'health': <EventType.HEALTH_CHANGED: 2>}
+20:48:49 DEBUG [core.context] GameContext initialized.
+20:48:49 DEBUG [core.scene_manager] SceneManager initialized.
+20:48:49 DEBUG [ui.ui_manager] UIManager initialized.
+20:48:49 DEBUG [ui.layout.vertical] Accumulated height: 0
+20:48:49 DEBUG [ui.layout.vertical] Adding element at position: (300, 200)
+20:48:49 DEBUG [ui.layout.vertical] Accumulated height: 100
+20:48:49 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(300, 200, 200, 50)>
+20:48:49 DEBUG [ui.layout.vertical] Accumulated height: 100
+20:48:49 DEBUG [ui.layout.vertical] Adding element at position: (300, 300)
+20:48:49 DEBUG [ui.layout.vertical] Accumulated height: 200
+20:48:49 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(300, 200, 200, 150)>
+20:48:49 DEBUG [ui.layout.vertical] Getting elements: [<ui.components.button.Button object at 0x00000288E0A042F0>, <ui.components.button.Button object at 0x00000288E098D810>]
+20:48:49 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x00000288E0A042F0>
+20:48:49 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x00000288E098D810>
+20:48:49 DEBUG [scenes.main_menu_scene] MainMenuScene initialized.
+20:48:49 DEBUG [core.scene_manager] Switching to scene: <scenes.main_menu_scene.MainMenuScene object at 0x00000288E095BE00>
+20:48:49 INFO  [root] Test–Info: FileHandler schreibt jetzt
+20:48:50 DEBUG [ui.ui_manager] UIManager initialized.
+20:48:50 DEBUG [core.stat_manager] Getting stat 'energy': 100
+20:48:50 DEBUG [core.stat_manager] Getting max from stat 'energy': 150
+20:48:50 DEBUG [core.stat_manager] Getting stat 'energy': 100
+20:48:50 DEBUG [ui.layout.horizontal] Accumulated width: 0
+20:48:50 DEBUG [ui.layout.horizontal] Adding element at position: (0, 0)
+20:48:50 DEBUG [ui.layout.horizontal] Accumulated width: 115
+20:48:50 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 100, 50)>
+20:48:50 DEBUG [ui.layout.horizontal] Accumulated width: 115
+20:48:50 DEBUG [ui.layout.horizontal] Adding element at position: (115, 0)
+20:48:50 DEBUG [ui.layout.horizontal] Accumulated width: 330
+20:48:50 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 315, 50)>
+20:48:50 DEBUG [ui.layout.horizontal] Accumulated width: 330
+20:48:50 DEBUG [ui.layout.horizontal] Adding element at position: (330, 0)
+20:48:50 DEBUG [ui.layout.horizontal] Accumulated width: 445
+20:48:50 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 430, 50)>
+20:48:50 DEBUG [core.stat_manager] Getting stat 'health': 50
+20:48:50 DEBUG [core.stat_manager] Getting max from stat 'health': 100
+20:48:50 DEBUG [core.stat_manager] Getting stat 'health': 50
+20:48:50 DEBUG [ui.layout.horizontal] Accumulated width: 0
+20:48:50 DEBUG [ui.layout.horizontal] Adding element at position: (0, 0)
+20:48:50 DEBUG [ui.layout.horizontal] Accumulated width: 115
+20:48:50 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 100, 50)>
+20:48:50 DEBUG [ui.layout.horizontal] Accumulated width: 115
+20:48:50 DEBUG [ui.layout.horizontal] Adding element at position: (115, 0)
+20:48:50 DEBUG [ui.layout.horizontal] Accumulated width: 330
+20:48:50 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 315, 50)>
+20:48:50 DEBUG [ui.layout.horizontal] Accumulated width: 330
+20:48:50 DEBUG [ui.layout.horizontal] Adding element at position: (330, 0)
+20:48:50 DEBUG [ui.layout.horizontal] Accumulated width: 445
+20:48:50 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 430, 50)>
+20:48:50 DEBUG [ui.layout.vertical] Accumulated height: 0
+20:48:50 DEBUG [ui.layout.vertical] Adding element at position: (0, 200)
+20:48:50 DEBUG [ui.layout.vertical] Accumulated height: 41
+20:48:50 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 97, 21)>
+20:48:50 DEBUG [ui.layout.vertical] Accumulated height: 41
+20:48:50 DEBUG [ui.layout.horizontal] Set layout position to: (0, 241)
+20:48:50 DEBUG [ui.layout.vertical] Adding element at position: (0, 241)
+20:48:50 DEBUG [ui.layout.vertical] Accumulated height: 111
+20:48:50 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 430, 91)>
+20:48:50 DEBUG [ui.layout.vertical] Accumulated height: 111
+20:48:50 DEBUG [ui.layout.vertical] Adding element at position: (0, 311)
+20:48:50 DEBUG [ui.layout.vertical] Accumulated height: 152
+20:48:50 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 430, 132)>
+20:48:50 DEBUG [ui.layout.vertical] Accumulated height: 152
+20:48:50 DEBUG [ui.layout.horizontal] Set layout position to: (0, 352)
+20:48:50 DEBUG [ui.layout.vertical] Adding element at position: (0, 352)
+20:48:50 DEBUG [ui.layout.vertical] Accumulated height: 222
+20:48:50 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 430, 202)>
+20:48:50 DEBUG [ui.layout.vertical] Accumulated height: 222
+20:48:50 DEBUG [ui.layout.vertical] Adding element at position: (0, 422)
+20:48:50 DEBUG [ui.layout.vertical] Accumulated height: 282
+20:48:50 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 430, 262)>
+20:48:50 DEBUG [core.events.event_manager] Registering callback for event: EventType.ENERGY_CHANGED
+20:48:50 DEBUG [core.events.event_manager] Registering callback for event: EventType.HEALTH_CHANGED
+20:48:50 DEBUG [ui.layout.horizontal] Flattened elements: [<ui.components.button.Button object at 0x00000288E0965E00>, <ui.components.progressbar.ProgressBar object at 0x00000288E0A04590>, <ui.components.button.Button object at 0x00000288E098DD10>]
+20:48:50 DEBUG [ui.layout.horizontal] Flattened elements: [<ui.components.button.Button object at 0x00000288E09C03B0>, <ui.components.progressbar.ProgressBar object at 0x00000288E098DF90>, <ui.components.button.Button object at 0x00000288E0966190>]
+20:48:50 DEBUG [ui.layout.vertical] Getting elements: [<ui.components.label.Label object at 0x00000288E0A04440>, <ui.components.button.Button object at 0x00000288E0965E00>, <ui.components.progressbar.ProgressBar object at 0x00000288E0A04590>, <ui.components.button.Button object at 0x00000288E098DD10>, <ui.components.label.Label object at 0x00000288E098DE50>, <ui.components.button.Button object at 0x00000288E09C03B0>, <ui.components.progressbar.ProgressBar object at 0x00000288E098DF90>, <ui.components.button.Button object at 0x00000288E0966190>, <ui.components.button.Button object at 0x00000288E0913130>]
+20:48:50 DEBUG [ui.ui_manager] Added element: <ui.components.label.Label object at 0x00000288E0A04440>
+20:48:50 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x00000288E0965E00>
+20:48:50 DEBUG [ui.ui_manager] Added element: <ui.components.progressbar.ProgressBar object at 0x00000288E0A04590>
+20:48:50 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x00000288E098DD10>
+20:48:50 DEBUG [ui.ui_manager] Added element: <ui.components.label.Label object at 0x00000288E098DE50>
+20:48:50 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x00000288E09C03B0>
+20:48:50 DEBUG [ui.ui_manager] Added element: <ui.components.progressbar.ProgressBar object at 0x00000288E098DF90>
+20:48:50 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x00000288E0966190>
+20:48:50 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x00000288E0913130>
+20:48:50 DEBUG [scenes.game_scene] GameScene initialized.
+20:48:50 DEBUG [core.scene_manager] Switching to scene: <scenes.game_scene.GameScene object at 0x00000288E0A041A0>
+20:48:51 DEBUG [core.scene_manager] Switching to scene: <scenes.main_menu_scene.MainMenuScene object at 0x00000288E095BE00>
+20:48:51 DEBUG [core.app] Exiting game...
+20:51:54 DEBUG [core.stat_manager] StatManager initialized.
+20:51:54 DEBUG [core.stat_manager] Stats: {'energy': 100, 'health': 50}
+20:51:54 DEBUG [core.stat_manager] Event map: {'energy': <EventType.ENERGY_CHANGED: 1>, 'health': <EventType.HEALTH_CHANGED: 2>}
+20:51:54 DEBUG [core.context] GameContext initialized.
+20:51:54 DEBUG [core.scene_manager] SceneManager initialized.
+20:51:54 DEBUG [ui.ui_manager] UIManager initialized.
+20:51:54 DEBUG [ui.layout.vertical] Accumulated height: 0
+20:51:54 DEBUG [ui.layout.vertical] Adding element at position: (300, 200)
+20:51:54 DEBUG [ui.layout.vertical] Accumulated height: 100
+20:51:54 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(300, 200, 200, 50)>
+20:51:54 DEBUG [ui.layout.vertical] Accumulated height: 100
+20:51:54 DEBUG [ui.layout.vertical] Adding element at position: (300, 300)
+20:51:54 DEBUG [ui.layout.vertical] Accumulated height: 200
+20:51:54 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(300, 200, 200, 150)>
+20:51:54 DEBUG [ui.layout.vertical] Getting elements: [<ui.components.button.Button object at 0x0000012B36A642F0>, <ui.components.button.Button object at 0x0000012B369F1810>]
+20:51:54 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x0000012B36A642F0>
+20:51:54 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x0000012B369F1810>
+20:51:54 DEBUG [scenes.main_menu_scene] MainMenuScene initialized.
+20:51:54 DEBUG [core.scene_manager] Switching to scene: <scenes.main_menu_scene.MainMenuScene object at 0x0000012B369BBE00>
+20:51:55 DEBUG [ui.ui_manager] UIManager initialized.
+20:51:55 DEBUG [core.stat_manager] Getting stat 'energy': 100
+20:51:55 DEBUG [core.stat_manager] Getting max from stat 'energy': 150
+20:51:55 DEBUG [ui.layout.horizontal] Accumulated width: 0
+20:51:55 DEBUG [ui.layout.horizontal] Adding element at position: (0, 0)
+20:51:55 DEBUG [ui.layout.horizontal] Accumulated width: 115
+20:51:55 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 100, 50)>
+20:51:55 DEBUG [ui.layout.horizontal] Accumulated width: 115
+20:51:55 DEBUG [ui.layout.horizontal] Adding element at position: (115, 0)
+20:51:55 DEBUG [ui.layout.horizontal] Accumulated width: 330
+20:51:55 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 315, 50)>
+20:51:55 DEBUG [ui.layout.horizontal] Accumulated width: 330
+20:51:55 DEBUG [ui.layout.horizontal] Adding element at position: (330, 0)
+20:51:55 DEBUG [ui.layout.horizontal] Accumulated width: 445
+20:51:55 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 430, 50)>
+20:51:55 DEBUG [core.stat_manager] Getting stat 'health': 50
+20:51:55 DEBUG [core.stat_manager] Getting max from stat 'health': 100
+20:51:55 DEBUG [ui.layout.horizontal] Accumulated width: 0
+20:51:55 DEBUG [ui.layout.horizontal] Adding element at position: (0, 0)
+20:51:55 DEBUG [ui.layout.horizontal] Accumulated width: 115
+20:51:55 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 100, 50)>
+20:51:55 DEBUG [ui.layout.horizontal] Accumulated width: 115
+20:51:55 DEBUG [ui.layout.horizontal] Adding element at position: (115, 0)
+20:51:55 DEBUG [ui.layout.horizontal] Accumulated width: 330
+20:51:55 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 315, 50)>
+20:51:55 DEBUG [ui.layout.horizontal] Accumulated width: 330
+20:51:55 DEBUG [ui.layout.horizontal] Adding element at position: (330, 0)
+20:51:55 DEBUG [ui.layout.horizontal] Accumulated width: 445
+20:51:55 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 430, 50)>
+20:51:55 DEBUG [ui.layout.vertical] Accumulated height: 0
+20:51:55 DEBUG [ui.layout.vertical] Adding element at position: (0, 200)
+20:51:55 DEBUG [ui.layout.vertical] Accumulated height: 41
+20:51:55 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 97, 21)>
+20:51:55 DEBUG [ui.layout.vertical] Accumulated height: 41
+20:51:55 DEBUG [ui.layout.horizontal] Set layout position to: (0, 241)
+20:51:55 DEBUG [ui.layout.vertical] Adding element at position: (0, 241)
+20:51:55 DEBUG [ui.layout.vertical] Accumulated height: 111
+20:51:55 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 430, 91)>
+20:51:55 DEBUG [ui.layout.vertical] Accumulated height: 111
+20:51:55 DEBUG [ui.layout.vertical] Adding element at position: (0, 311)
+20:51:55 DEBUG [ui.layout.vertical] Accumulated height: 152
+20:51:55 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 430, 132)>
+20:51:55 DEBUG [ui.layout.vertical] Accumulated height: 152
+20:51:55 DEBUG [ui.layout.horizontal] Set layout position to: (0, 352)
+20:51:55 DEBUG [ui.layout.vertical] Adding element at position: (0, 352)
+20:51:55 DEBUG [ui.layout.vertical] Accumulated height: 222
+20:51:55 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 430, 202)>
+20:51:55 DEBUG [ui.layout.vertical] Accumulated height: 222
+20:51:55 DEBUG [ui.layout.vertical] Adding element at position: (0, 422)
+20:51:55 DEBUG [ui.layout.vertical] Accumulated height: 282
+20:51:55 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 430, 262)>
+20:51:55 DEBUG [core.events.event_manager] Registering callback for event: EventType.ENERGY_CHANGED
+20:51:55 DEBUG [core.events.event_manager] Registering callback for event: EventType.HEALTH_CHANGED
+20:51:55 DEBUG [ui.layout.horizontal] Flattened elements: [<ui.components.button.Button object at 0x0000012B369C9F30>, <ui.components.progressbar.ProgressBar object at 0x0000012B36A64590>, <ui.components.button.Button object at 0x0000012B369F1D10>]
+20:51:55 DEBUG [ui.layout.horizontal] Flattened elements: [<ui.components.button.Button object at 0x0000012B36A283B0>, <ui.components.progressbar.ProgressBar object at 0x0000012B369F1F90>, <ui.components.button.Button object at 0x0000012B369CA2C0>]
+20:51:55 DEBUG [ui.layout.vertical] Getting elements: [<ui.components.label.Label object at 0x0000012B36A64440>, <ui.components.button.Button object at 0x0000012B369C9F30>, <ui.components.progressbar.ProgressBar object at 0x0000012B36A64590>, <ui.components.button.Button object at 0x0000012B369F1D10>, <ui.components.label.Label object at 0x0000012B369F1E50>, <ui.components.button.Button object at 0x0000012B36A283B0>, <ui.components.progressbar.ProgressBar object at 0x0000012B369F1F90>, <ui.components.button.Button object at 0x0000012B369CA2C0>, <ui.components.button.Button object at 0x0000012B36973020>]
+20:51:55 DEBUG [ui.ui_manager] Added element: <ui.components.label.Label object at 0x0000012B36A64440>
+20:51:55 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x0000012B369C9F30>
+20:51:55 DEBUG [ui.ui_manager] Added element: <ui.components.progressbar.ProgressBar object at 0x0000012B36A64590>
+20:51:55 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x0000012B369F1D10>
+20:51:55 DEBUG [ui.ui_manager] Added element: <ui.components.label.Label object at 0x0000012B369F1E50>
+20:51:55 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x0000012B36A283B0>
+20:51:55 DEBUG [ui.ui_manager] Added element: <ui.components.progressbar.ProgressBar object at 0x0000012B369F1F90>
+20:51:55 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x0000012B369CA2C0>
+20:51:55 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x0000012B36973020>
+20:51:55 DEBUG [scenes.game_scene] GameScene initialized.
+20:51:55 DEBUG [core.scene_manager] Switching to scene: <scenes.game_scene.GameScene object at 0x0000012B36A641A0>
+20:51:56 DEBUG [core.stat_manager] Modifying stat 'health' by -10. Current value: 50
+20:51:56 DEBUG [core.stat_manager] Getting stat 'health': 50
+20:51:56 DEBUG [core.stat_manager] Setting stat 'health' to 40
+20:51:56 DEBUG [core.events.event_manager] Dispatching event: EventType.HEALTH_CHANGED with args: (), kwargs: {'new_value': 40}
+20:51:56 DEBUG [core.stat_manager] Modifying stat 'health' by 10. Current value: 40
+20:51:56 DEBUG [core.stat_manager] Getting stat 'health': 40
+20:51:56 DEBUG [core.stat_manager] Setting stat 'health' to 50
+20:51:56 DEBUG [core.events.event_manager] Dispatching event: EventType.HEALTH_CHANGED with args: (), kwargs: {'new_value': 50}
+20:51:57 DEBUG [core.scene_manager] Switching to scene: <scenes.main_menu_scene.MainMenuScene object at 0x0000012B369BBE00>
+20:51:58 DEBUG [core.app] Exiting game...
+20:54:07 DEBUG [core.stat_manager] StatManager initialized.
+20:54:07 DEBUG [core.stat_manager] Stats: {'energy': 100, 'health': 50}
+20:54:07 DEBUG [core.stat_manager] Event map: {'energy': <EventType.ENERGY_CHANGED: 1>, 'health': <EventType.HEALTH_CHANGED: 2>}
+20:54:07 DEBUG [core.context] GameContext initialized.
+20:54:07 DEBUG [core.scene_manager] SceneManager initialized.
+20:54:07 DEBUG [ui.ui_manager] UIManager initialized.
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 0
+20:54:07 DEBUG [ui.layout.vertical] Adding element at position: (300, 200)
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 100
+20:54:07 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(300, 200, 200, 50)>
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 100
+20:54:07 DEBUG [ui.layout.vertical] Adding element at position: (300, 300)
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 200
+20:54:07 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(300, 200, 200, 150)>
+20:54:07 DEBUG [ui.layout.vertical] Getting elements: [<ui.components.button.Button object at 0x000002642C0B82F0>, <ui.components.button.Button object at 0x000002642C03D810>]
+20:54:07 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x000002642C0B82F0>
+20:54:07 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x000002642C03D810>
+20:54:07 DEBUG [scenes.main_menu_scene] MainMenuScene initialized.
+20:54:07 DEBUG [core.scene_manager] Switching to scene: <scenes.main_menu_scene.MainMenuScene object at 0x000002642C00BE00>
+20:54:07 DEBUG [ui.ui_manager] UIManager initialized.
+20:54:07 DEBUG [core.stat_manager] Getting stat 'energy': 100
+20:54:07 DEBUG [core.stat_manager] Getting stat 'energy': 100
+20:54:07 DEBUG [core.stat_manager] Getting max from stat 'energy': 150
+20:54:07 DEBUG [ui.layout.horizontal] Accumulated width: 0
+20:54:07 DEBUG [ui.layout.horizontal] Adding element at position: (0, 0)
+20:54:07 DEBUG [ui.layout.horizontal] Accumulated width: 115
+20:54:07 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 100, 50)>
+20:54:07 DEBUG [ui.layout.horizontal] Accumulated width: 115
+20:54:07 DEBUG [ui.layout.horizontal] Adding element at position: (115, 0)
+20:54:07 DEBUG [ui.layout.horizontal] Accumulated width: 330
+20:54:07 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 315, 50)>
+20:54:07 DEBUG [ui.layout.horizontal] Accumulated width: 330
+20:54:07 DEBUG [ui.layout.horizontal] Adding element at position: (330, 0)
+20:54:07 DEBUG [ui.layout.horizontal] Accumulated width: 445
+20:54:07 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 430, 50)>
+20:54:07 DEBUG [core.stat_manager] Getting stat 'health': 50
+20:54:07 DEBUG [core.stat_manager] Getting stat 'health': 50
+20:54:07 DEBUG [core.stat_manager] Getting max from stat 'health': 100
+20:54:07 DEBUG [ui.layout.horizontal] Accumulated width: 0
+20:54:07 DEBUG [ui.layout.horizontal] Adding element at position: (0, 0)
+20:54:07 DEBUG [ui.layout.horizontal] Accumulated width: 115
+20:54:07 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 100, 50)>
+20:54:07 DEBUG [ui.layout.horizontal] Accumulated width: 115
+20:54:07 DEBUG [ui.layout.horizontal] Adding element at position: (115, 0)
+20:54:07 DEBUG [ui.layout.horizontal] Accumulated width: 330
+20:54:07 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 315, 50)>
+20:54:07 DEBUG [ui.layout.horizontal] Accumulated width: 330
+20:54:07 DEBUG [ui.layout.horizontal] Adding element at position: (330, 0)
+20:54:07 DEBUG [ui.layout.horizontal] Accumulated width: 445
+20:54:07 DEBUG [ui.layout.horizontal] Recalculated layout rect: <rect(0, 0, 430, 50)>
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 0
+20:54:07 DEBUG [ui.layout.vertical] Adding element at position: (0, 200)
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 41
+20:54:07 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 97, 21)>
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 41
+20:54:07 DEBUG [ui.layout.horizontal] Set layout position to: (0, 241)
+20:54:07 DEBUG [ui.layout.vertical] Adding element at position: (0, 241)
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 111
+20:54:07 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 430, 91)>
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 111
+20:54:07 DEBUG [ui.layout.vertical] Adding element at position: (0, 311)
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 152
+20:54:07 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 430, 132)>
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 152
+20:54:07 DEBUG [ui.layout.horizontal] Set layout position to: (0, 352)
+20:54:07 DEBUG [ui.layout.vertical] Adding element at position: (0, 352)
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 222
+20:54:07 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 430, 202)>
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 222
+20:54:07 DEBUG [ui.layout.vertical] Adding element at position: (0, 422)
+20:54:07 DEBUG [ui.layout.vertical] Accumulated height: 282
+20:54:07 DEBUG [ui.layout.vertical] Recalculated layout rect: <rect(0, 200, 430, 262)>
+20:54:07 DEBUG [core.events.event_manager] Registering callback for event: EventType.ENERGY_CHANGED
+20:54:07 DEBUG [core.events.event_manager] Registering callback for event: EventType.HEALTH_CHANGED
+20:54:07 DEBUG [ui.layout.horizontal] Flattened elements: [<ui.components.button.Button object at 0x000002642C019E00>, <ui.components.progressbar.ProgressBar object at 0x000002642C0B8590>, <ui.components.button.Button object at 0x000002642C03DD10>]
+20:54:07 DEBUG [ui.layout.horizontal] Flattened elements: [<ui.components.button.Button object at 0x000002642C0783B0>, <ui.components.progressbar.ProgressBar object at 0x000002642C03DF90>, <ui.components.button.Button object at 0x000002642C01A190>]
+20:54:07 DEBUG [ui.layout.vertical] Getting elements: [<ui.components.label.Label object at 0x000002642C0B8440>, <ui.components.button.Button object at 0x000002642C019E00>, <ui.components.progressbar.ProgressBar object at 0x000002642C0B8590>, <ui.components.button.Button object at 0x000002642C03DD10>, <ui.components.label.Label object at 0x000002642C03DE50>, <ui.components.button.Button object at 0x000002642C0783B0>, <ui.components.progressbar.ProgressBar object at 0x000002642C03DF90>, <ui.components.button.Button object at 0x000002642C01A190>, <ui.components.button.Button object at 0x000002642BFC3020>]
+20:54:07 DEBUG [ui.ui_manager] Added element: <ui.components.label.Label object at 0x000002642C0B8440>
+20:54:07 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x000002642C019E00>
+20:54:07 DEBUG [ui.ui_manager] Added element: <ui.components.progressbar.ProgressBar object at 0x000002642C0B8590>
+20:54:07 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x000002642C03DD10>
+20:54:07 DEBUG [ui.ui_manager] Added element: <ui.components.label.Label object at 0x000002642C03DE50>
+20:54:07 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x000002642C0783B0>
+20:54:07 DEBUG [ui.ui_manager] Added element: <ui.components.progressbar.ProgressBar object at 0x000002642C03DF90>
+20:54:07 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x000002642C01A190>
+20:54:07 DEBUG [ui.ui_manager] Added element: <ui.components.button.Button object at 0x000002642BFC3020>
+20:54:07 DEBUG [scenes.game_scene] GameScene initialized.
+20:54:07 DEBUG [core.scene_manager] Switching to scene: <scenes.game_scene.GameScene object at 0x000002642C0B81A0>
+20:54:08 DEBUG [core.stat_manager] Modifying stat 'energy' by 10. Current value: 100
+20:54:08 DEBUG [core.stat_manager] Getting stat 'energy': 100
+20:54:08 DEBUG [core.stat_manager] Setting stat 'energy' to 110
+20:54:08 DEBUG [core.events.event_manager] Dispatching event: EventType.ENERGY_CHANGED with args: (), kwargs: {'new_value': 110}
+20:54:08 DEBUG [core.stat_manager] Modifying stat 'energy' by 10. Current value: 110
+20:54:08 DEBUG [core.stat_manager] Getting stat 'energy': 110
+20:54:08 DEBUG [core.stat_manager] Setting stat 'energy' to 120
+20:54:08 DEBUG [core.events.event_manager] Dispatching event: EventType.ENERGY_CHANGED with args: (), kwargs: {'new_value': 120}
+20:54:09 DEBUG [core.scene_manager] Switching to scene: <scenes.main_menu_scene.MainMenuScene object at 0x000002642C00BE00>
+20:54:10 DEBUG [core.app] Exiting game...

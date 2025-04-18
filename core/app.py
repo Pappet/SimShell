@@ -14,17 +14,18 @@ import core.config as Config
 import utility.color as Color
 from core.scene_manager import SceneManager
 from core.context import GameContext
-from core.debug_console import DebugConsole
+import logging
 
+logger = logging.getLogger(__name__)
 
 class GameApp:
-    def __init__(self):
+    def __init__(self, debug_console=None):
         self.screen = pygame.display.set_mode((Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT))
         pygame.display.set_caption(Config.TITLE)
         self.clock = pygame.time.Clock()
 
         self.font = pygame.font.SysFont(Config.FONT_NAME, Config.DEBUG_FONT_SIZE)
-        self.debug_console = DebugConsole(self.font)
+        self.debug_console = debug_console
 
         self.context = GameContext(self.debug_console)
         self.scene_manager = SceneManager(self.context, self.debug_console, app=self)
@@ -43,7 +44,7 @@ class GameApp:
                 self.scene_manager.handle_event(event)
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
                     self.debug = not self.debug
-                    self.debug_console.log("Debug mode toggled.")
+                    logger.debug("Debug mode is now {}".format("on" if self.debug else "off"))
             
             self.scene_manager.update()
             self.scene_manager.draw(self.screen)
@@ -59,7 +60,6 @@ class GameApp:
     def exit_game(self):
         # exit the loop and close the game
         self.running = False
-        self.debug_console.log("Exiting game.")
-        print("Exiting game...")
+        logger.debug("Exiting game...")
         pygame.quit()
         sys.exit()

@@ -2,10 +2,10 @@ import pygame
 import utility.color as Color
 
 class ProgressBar:
-    def __init__(self, x, y, w, h, max_value, color=Color.random_color()):
+    def __init__(self, x, y, w, h, current_value, max_value, color=Color.random_color()):
         self.rect = pygame.Rect(x, y, w, h)
         self.max_value = max_value
-        self.current_value = max_value
+        self.current_value = current_value
         self.color = color
 
     def draw(self, surface):

@@ -7,7 +7,9 @@ It handles switching between scenes, updating them, and drawing them on the scre
 
 import scenes
 from core.scene_registry import scene_registry
+import logging
 
+logger = logging.getLogger(__name__)
 
 class SceneManager:
     def __init__(self, context, debug_console, app):
@@ -16,6 +18,7 @@ class SceneManager:
         self.context = context
         self.current_scene = None
         self.scene_cache = {}
+        logger.debug("SceneManager initialized.")
 
     def switch_scene(self, key):
         if key not in self.scene_cache:
@@ -30,7 +33,7 @@ class SceneManager:
             elif key in scene_registry:
                 scene = scene_registry[key](self.context, self.switch_scene)
             else:
-                self.debug_console.log(f"Scene for key: '{key}' not found.")
+                logger.warning(f"Scene '{key}' not found in registry.")
                 return
 
             self.scene_cache[key] = scene
@@ -38,7 +41,7 @@ class SceneManager:
 
     def switch_to(self, scene):
         if self.debug_console:
-            self.debug_console.log(f"Switching to scene: {scene}")
+            logger.debug(f"Switching to scene: {scene}")
         self.current_scene = scene
 
     def handle_event(self, event):

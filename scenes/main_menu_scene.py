@@ -4,13 +4,16 @@ import pygame
 import utility.color as Color
 from core.scene_registry import scene
 from setup.menu_ui_setup import create_main_menu_ui
+import logging
+
+logger = logging.getLogger(__name__)
 
 @scene("menu")
 class MainMenuScene:
     def __init__(self, context, switch_scene_callback, exit_callback):
         self.context = context
         self.ui = create_main_menu_ui(switch_scene_callback, exit_callback, self.context.debug_console)
-        self.context.debug_console.log("MainMenuScene initialized.")
+        logger.debug("MainMenuScene initialized.")
 
     def handle_event(self, event):
         self.ui.handle_event(event)
