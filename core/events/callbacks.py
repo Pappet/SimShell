@@ -4,7 +4,7 @@ such as starting or exiting the game, or modifying player stats.
 They are designed to be used with the event manager and stat manager to handle game state changes and UI updates.
 '''
 import logging
-from themes.theme_manager import set_theme, get_color
+from themes.theme_manager import set_theme, get_theme_name
 
 logger = logging.getLogger(__name__)
 
@@ -14,8 +14,13 @@ def modify_stat(stat_manager, stat_name, amount):
     else:
         logger.warning(f"Stat '{stat_name}' not found. Cannot modify.")
 
-# Theme switch example:
 def toggle_theme():
-    current = "light" if get_color("background") == (24, 24, 24) else "dark"
+    current = get_theme_name()
+    new = "dark" if current in ("light", "retro") else "light"
+    logger.info(f"Toggling theme from {current} to {new}.")
+    set_theme(new)
+
+def toggle_retro():
+    current = "retro"
     logger.info(f"Toggling theme to {current}.")
     set_theme(current)

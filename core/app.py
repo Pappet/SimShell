@@ -36,8 +36,6 @@ class GameApp:
         self.debug = False
         self.scene_manager.switch_scene("menu")
 
-        # Set theme on startup
-        set_theme("dark")
 
     def run(self):
         while self.running:

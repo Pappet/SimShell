@@ -17,12 +17,15 @@ import core.config as Config
 def create_game_ui(stat_manager, event_manager, switch_scene_callback):
     ui = UIManager()
     
+    # Define keys for stats
+    # These keys should match the keys used in the StatManager
     energy_key = "energy"
     health_key = "health"
 
+    # Title Label
     title_Label = Label("Game Scene", (0, 0), Config.TITLE_FONT_SIZE, Config.TITLE_FONT_NAME)
 
-    #Energy UI Elements
+    # Energy UI Elements
     energy_label = Label(f"{energy_key.capitalize()}: {stat_manager.get(energy_key)}", (0, 0))
     energy_bar = ProgressBar(0, 0, 200, 30, stat_manager.get(energy_key), stat_manager.get_max(energy_key), get_color("energy"))
     button_add = Button(
@@ -35,6 +38,8 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback):
         "-10",
         lambda: Callbacks.modify_stat(stat_manager, energy_key, -10)
     )
+
+    # Horizontal layout for energy buttons and bar
     row_energy = HorizontalLayout(x=0, y=0, spacing=15)
     row_energy.add(button_sub)
     row_energy.add(energy_bar)
@@ -49,7 +54,7 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback):
     panel_col_energy.add(row_energy)
     energy_panel.add(panel_col_energy)
 
-    #Health UI Elements
+    # Health UI Elements
     health_label = Label(f"{health_key.capitalize()}: {stat_manager.get(health_key)}", (0, 0))
     health_bar = ProgressBar(0, 0, 200, 30, stat_manager.get(health_key), stat_manager.get_max(health_key), get_color("health"))
     button_add_health = Button(
@@ -63,6 +68,7 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback):
         lambda: Callbacks.modify_stat(stat_manager, health_key, -10)
     )
 
+    # Horizontal layout for health buttons and bar
     row_health = HorizontalLayout(x=0, y=0, spacing=15)
     row_health.add(button_sub_health)
     row_health.add(health_bar)
@@ -77,6 +83,7 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback):
     panel_col_health.add(row_health)
     health_panel.add(panel_col_health)
 
+    # Back button to return to the main menu
     button_back = Button(
         (0, 0, 200, 40),
         "Zurück zum Menü",
@@ -91,6 +98,7 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback):
     column.add(health_panel)
     column.add(button_back)
 
+    # Adding the Elements to the UI manager
     ui.add(title_Label)
     ui.add(energy_panel)
     ui.add(health_panel)

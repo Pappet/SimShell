@@ -10,7 +10,7 @@ import core.config as Config
 def create_main_menu_ui(switch_scene_callback, exit_callback):
     ui = UIManager()
 
-    layout = VerticalLayout(x=300, y=200, spacing=50, align="center")
+    layout = VerticalLayout(x=300, y=100, spacing=50, align="center")
 
     title_Label = Label("Hauptmenü", (0, 0), Config.TITLE_FONT_SIZE, Config.TITLE_FONT_NAME)
 
@@ -26,6 +26,12 @@ def create_main_menu_ui(switch_scene_callback, exit_callback):
         lambda: Callbacks.toggle_theme()
     )
 
+    retro_button = Button(
+        (0, 0, 200, 50),
+        "Retro Thema wechseln",
+        lambda: Callbacks.toggle_retro()
+    )
+
     exit_button = Button(
         (0, 0, 200, 50),
         "Beenden",
@@ -35,6 +41,7 @@ def create_main_menu_ui(switch_scene_callback, exit_callback):
     layout.add(title_Label)
     layout.add(start_button)
     layout.add(theme_button)
+    layout.add(retro_button)
     layout.add(exit_button)
 
     for element in layout.get_elements():
