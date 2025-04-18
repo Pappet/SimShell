@@ -11,6 +11,7 @@ import core.events.callbacks as Callbacks
 import core.events.event_handlers as EventHandlers
 from core.events.event_types import EventType
 from themes.theme_manager import get_color
+import core.config as Config
 
     
 def create_game_ui(stat_manager, event_manager, switch_scene_callback):
@@ -18,6 +19,8 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback):
     
     energy_key = "energy"
     health_key = "health"
+
+    title_Label = Label("Game Scene", (0, 0), Config.TITLE_FONT_SIZE, Config.TITLE_FONT_NAME)
 
     #Energy UI Elements
     energy_label = Label(f"{energy_key.capitalize()}: {stat_manager.get(energy_key)}", (0, 0))
@@ -83,10 +86,12 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback):
     # Creating the main layout
     # Vertical layout for the entire UI
     column = VerticalLayout(x=200, y=200, spacing=20, align="center")
+    column.add(title_Label)
     column.add(energy_panel)
     column.add(health_panel)
     column.add(button_back)
 
+    ui.add(title_Label)
     ui.add(energy_panel)
     ui.add(health_panel)
     ui.add(button_back)

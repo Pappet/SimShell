@@ -3,9 +3,11 @@ from themes.theme_manager import get_color
 import core.config as Config
 
 class Label:
-    def __init__(self, text, position):
+    def __init__(self, text, position, font_size=Config.FONT_SIZE, font_name=Config.FONT_NAME):
         self.text = text
-        self.font = pygame.font.SysFont(Config.FONT_NAME, Config.FONT_SIZE)
+        self.font_size = font_size
+        self.font_name = font_name
+        self.font = pygame.font.SysFont(self.font_name, self.font_size)
         self.color = get_color("foreground")
         text_surf = self.font.render(self.text, True, self.color)
         self.rect = text_surf.get_rect(topleft=position)
