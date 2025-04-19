@@ -5,14 +5,14 @@ from ui.components.label import Label
 from ui.ui_manager import UIManager
 from ui.layout.vertical import VerticalLayout
 import core.events.callbacks as Callbacks
-import core.config as Config
+import setup.config as Config
 
 def create_main_menu_ui(switch_scene_callback, exit_callback):
     ui = UIManager()
 
     layout = VerticalLayout(x=300, y=100, spacing=50, align="center")
 
-    title_Label = Label("Hauptmenü", (0, 0), Config.TITLE_FONT_SIZE, Config.TITLE_FONT_NAME)
+    title_Label = Label("Hauptmenü", (0, 0), Config.fonts["title"]["size"], Config.fonts["title"]["name"])
 
     start_button = Button(
         (0, 0, 200, 50),

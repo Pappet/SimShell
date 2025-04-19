@@ -1,10 +1,11 @@
 import pygame
 import logging
+import setup.config as Config
 
 logger = logging.getLogger(__name__)
 
 class VerticalLayout:
-    def __init__(self, x, y, spacing=10, align='left'):
+    def __init__(self, x, y, spacing=Config.ui["default"]["spacing"], align='left'):
         """
         A vertical layout for UI elements, with optional horizontal alignment.
 

@@ -12,8 +12,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class EventManager:
-    def __init__(self, debug_console):
-        self.debug_console = debug_console
+    def __init__(self):
         self.listeners = {}
 
     def register(self, event_type: EventType, callback):

@@ -1,5 +1,5 @@
 import pygame
-import core.config as Config
+import setup.config as Config
 from themes.theme_manager import get_color
 
 class Button:
@@ -7,13 +7,13 @@ class Button:
         self.rect = pygame.Rect(rect)
         self.text = text
         self.callback = callback
-        self.font = pygame.font.SysFont(Config.FONT_NAME, Config.FONT_SIZE)
+        self.font = pygame.font.SysFont(Config.fonts["default"]["name"], Config.fonts["default"]["size"])
         self.hovered = False
 
     def draw(self, surface):
         color = get_color("button_default") if self.hovered else get_color("button_hover")
         pygame.draw.rect(surface, color, self.rect)
-        pygame.draw.rect(surface, get_color("border"), self.rect, 2)
+        pygame.draw.rect(surface, get_color("border"), self.rect, Config.ui["default"]["border_width"])
         text_surf = self.font.render(self.text, True, get_color("button_text"))
         text_rect = text_surf.get_rect(center=self.rect.center)
         surface.blit(text_surf, text_rect)

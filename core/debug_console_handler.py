@@ -9,7 +9,6 @@ class DebugConsoleHandler(logging.Handler):
     def emit(self, record: logging.LogRecord):
         try:
             msg = self.format(record)
-            # In deiner Console bleibt die Zeit, so wie sie intern gemessen wird
             self.debug_console.log(msg)
         except Exception:
             self.handleError(record)

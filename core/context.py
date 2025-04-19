@@ -13,8 +13,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class GameContext:
-    def __init__(self, debug_console):        
-        self.event_manager = EventManager(debug_console=debug_console)
-        self.stat_manager = StatManager(event_manager=self.event_manager, debug_console=debug_console)
-        self.debug_console = debug_console
+    def __init__(self):        
+        self.event_manager = EventManager()
+        self.stat_manager = StatManager(event_manager=self.event_manager)
         logger.debug("GameContext initialized.")

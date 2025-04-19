@@ -1,9 +1,9 @@
 import pygame
 from themes.theme_manager import get_color
-import core.config as Config
+import setup.config as Config
 
 class Label:
-    def __init__(self, text, position, font_size=Config.FONT_SIZE, font_name=Config.FONT_NAME):
+    def __init__(self, text, position, font_size=Config.fonts["default"]["size"], font_name=Config.fonts["default"]["name"]):
         self.text = text
         self.font_size = font_size
         self.font_name = font_name

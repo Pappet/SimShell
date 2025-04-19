@@ -3,6 +3,7 @@ import json
 from core.events.event_types import EventType
 from core.decorators import ensure_key
 from collections import namedtuple
+import setup.config as Config
 import logging
 
 
@@ -17,8 +18,7 @@ logger = logging.getLogger(__name__)
 StatConfig = namedtuple("StatConfig", ["initial", "min", "max", "event_type"])
 
 class StatManager:
-    def __init__(self, event_manager, debug_console, config_path="setup/stats_config.json"):
-        self.debug_console = debug_console
+    def __init__(self, event_manager, config_path=Config.paths["stats_config"]):
         self.event_manager = event_manager
 
         # 1) JSON‑Datei einlesen

@@ -1,4 +1,5 @@
 import pygame
+import setup.config as Config
 from themes.theme_manager import get_color
 
 class Panel:
@@ -17,7 +18,7 @@ class Panel:
     def __init__(self, x, y, width=None, height=None,
                  background_key='panel_background',
                  border_key='border',
-                 padding=10):
+                 padding=Config.ui["default"]["padding"]):
         init_w = width or 0
         init_h = height or 0
         self.rect = pygame.Rect(x, y, init_w, init_h)

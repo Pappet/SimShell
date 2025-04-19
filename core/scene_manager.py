@@ -12,9 +12,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 class SceneManager:
-    def __init__(self, context, debug_console, app):
+    def __init__(self, context, app):
         self.app = app
-        self.debug_console = debug_console
         self.context = context
         self.current_scene = None
         self.scene_cache = {}
@@ -40,8 +39,7 @@ class SceneManager:
         self.switch_to(self.scene_cache[key])
 
     def switch_to(self, scene):
-        if self.debug_console:
-            logger.debug(f"Switching to scene: {scene}")
+        logger.debug(f"Switching to scene: {scene}")
         self.current_scene = scene
 
     def handle_event(self, event):

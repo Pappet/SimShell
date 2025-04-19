@@ -1,7 +1,7 @@
 import pytest
 import pygame
 import sys
-import core.config as config
+import setup.config as config
 
 # Configure known values for tests
 config.SCREEN_WIDTH = 800

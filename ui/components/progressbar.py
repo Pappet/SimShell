@@ -1,4 +1,5 @@
 import pygame
+import setup.config as Config
 from themes.theme_manager import get_color, random_color
 
 class ProgressBar:
@@ -12,7 +13,7 @@ class ProgressBar:
         fill_width = int((self.current_value / self.max_value) * self.rect.width)
         fill_rect = pygame.Rect(self.rect.x, self.rect.y, fill_width, self.rect.height)
         pygame.draw.rect(surface, self.color, fill_rect)
-        pygame.draw.rect(surface, get_color("border"), self.rect, 2)
+        pygame.draw.rect(surface, get_color("border"), self.rect, Config.ui["default"]["border_width"])
 
     def set_value(self, value):
         self.current_value = max(0, min(self.max_value, value))
