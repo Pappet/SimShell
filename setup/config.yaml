@@ -47,4 +47,4 @@ scenes:
 plugins:
 - name: FPS-Anzeige
   module: plugins.fps_display
-  enabled: true
+  enabled: false
