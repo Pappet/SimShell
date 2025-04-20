@@ -10,7 +10,7 @@ import setup.config as Config
 def create_main_menu_ui(switch_scene_callback, exit_callback):
     ui = UIManager()
 
-    layout = VerticalLayout(x=300, y=100, spacing=50, align="center")
+    layout = VerticalLayout(x=300, y=100, spacing=10, align="center")
 
     title_Label = Label("Hauptmenü", (0, 0), Config.fonts["title"]["size"], Config.fonts["title"]["name"])
 
@@ -32,6 +32,12 @@ def create_main_menu_ui(switch_scene_callback, exit_callback):
         lambda: Callbacks.toggle_retro()
     )
 
+    plugins_button = Button(
+        (0, 0, 200, 50),
+        "Plugins Manager",
+        lambda: switch_scene_callback("plugins")
+    )
+
     exit_button = Button(
         (0, 0, 200, 50),
         "Beenden",
@@ -42,7 +48,9 @@ def create_main_menu_ui(switch_scene_callback, exit_callback):
     layout.add(start_button)
     layout.add(theme_button)
     layout.add(retro_button)
+    layout.add(plugins_button)
     layout.add(exit_button)
+    
 
     for element in layout.get_elements():
         ui.add(element)

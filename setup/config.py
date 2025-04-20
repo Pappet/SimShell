@@ -33,3 +33,13 @@ fonts       = _data.get('fonts', {})
 ui          = _data.get('ui', {})
 theme       = _data.get('theme', {})
 scenes      = _data.get('scenes', {})
+# neu: Plugins als Liste von Metadaten
+plugins = _data.get('plugins', [])
+
+def save():
+    """Schreibt den aktuellen _data-Stand zurück in die YAML/JSON."""
+    with open(_cfg_file, 'w', encoding='utf-8') as f:
+        if _use_yaml:
+            yaml.safe_dump(_data, f, sort_keys=False)
+        else:
+            json.dump(_data, f, indent=2)

@@ -28,6 +28,11 @@ class SceneManager:
                     self.switch_scene,
                     self.app.exit_game
                 )
+            elif key == "plugins":
+                from scenes.plugin_manager_scene import PluginManagerScene
+                scene = PluginManagerScene(
+                    self.app
+                )
             # alle anderen Scenes wie gehabt
             elif key in scene_registry:
                 scene = scene_registry[key](self.context, self.switch_scene)

@@ -1,41 +1,31 @@
-# setup/config.yaml
-
-# 1) Fenster und Rendering
 screen:
   width: 800
   height: 600
   fps: 60
-  title: "SimShell Framework"
-
-# 2) Dateipfade
+  title: SimShell Framework
 paths:
-  stats_config: "setup/stats_config.json"     # Pfad für Stat‐Konfiguration
-  log_file: "simshell.log"                    # Log‑Datei
-
-# 3) Logging
+  stats_config: setup/stats_config.json
+  log_file: simshell.log
+  plugins_path: plugins
 logging:
-  level: DEBUG                                # Root‑Level
-  file_level: DEBUG                           # Level für FileHandler
-  console_level: INFO                         # Level für In‑Game‑Console
-  max_bytes: 1000000                          # maxBytes für RotatingFileHandler
-  backup_count: 3                             # backupCount für RotatingFileHandler
-  date_format: "%H:%M:%S"
-  file_log_format: "%(asctime)s %(levelname)-5s [%(name)s] %(message)s"
-  console_log_format: "%(levelname)-5s | %(message)s"
-
-# 4) Fonts und Größen
+  level: DEBUG
+  file_level: DEBUG
+  console_level: INFO
+  max_bytes: 1000000
+  backup_count: 3
+  date_format: '%H:%M:%S'
+  file_log_format: '%(asctime)s %(levelname)-5s [%(name)s] %(message)s'
+  console_log_format: '%(levelname)-5s | %(message)s'
 fonts:
   default:
-    name: "Arial"
+    name: Arial
     size: 18
   debug:
-    name: "Consolas"
+    name: Consolas
     size: 12
   title:
-    name: "Arial Black"
+    name: Arial Black
     size: 24
-
-# 5) UI‑Defaults
 ui:
   default:
     border_width: 2
@@ -43,13 +33,18 @@ ui:
     spacing: 10
   debug_console:
     max_lines: 10
-    pos: [10, 10]
-
-# 6) Theme
+    pos:
+    - 10
+    - 10
 theme:
-  default: "dark"                             # Start‑Theme
-
-# 7) Scenes
+  default: dark
 scenes:
-  initial: "menu"                             # Start‑Szene
-  available: ["menu", "game"]                 # Registrierte Szenen
+  initial: menu
+  available:
+  - menu
+  - game
+  - plugin_manager
+plugins:
+- name: FPS-Anzeige
+  module: plugins.fps_display
+  enabled: true
