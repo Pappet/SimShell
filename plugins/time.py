@@ -16,5 +16,5 @@ class PluginImpl(Plugin):
         surface.blit(text, (400, 10))
 
     def on_shutdown(self):
-        print("shutdown")
+        pass
         

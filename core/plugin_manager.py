@@ -59,7 +59,6 @@ class PluginManager:
             inst = self.loaded.pop(meta["module"], None)
             if inst in self.plugins:
                 self.plugins.remove(inst)
-            print(meta["module"])
             if inst and hasattr(inst, "on_shutdown"):
                 inst.on_shutdown()
             save()
