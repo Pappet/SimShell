@@ -7,3 +7,17 @@ simshell.log*
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Virtual Environment
+venv/
+env/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
