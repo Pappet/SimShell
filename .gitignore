@@ -1,3 +1,4 @@
 /.coverage
 /.pytest_cache
 simshell.log*
+./__pycache__
