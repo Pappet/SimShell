@@ -1,0 +1,5 @@
+name: Time
+module: plugins.time.time
+enabled: false
+depends:
+- FPS-Anzeige

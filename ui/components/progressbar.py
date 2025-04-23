@@ -1,19 +1,31 @@
+# ui/components/progressbar.py
+
 import pygame
 import setup.config as Config
-from themes.theme_manager import get_color, random_color
+from themes.theme_manager import get_color
+from ui.components.base import UIElement
 
-class ProgressBar:
-    def __init__(self, x, y, w, h, current_value, max_value, color=random_color()):
-        self.rect = pygame.Rect(x, y, w, h)
+class ProgressBar(UIElement):
+    def __init__(self, x, y, w, h, current_value, max_value, color=None):
+        # super kümmert sich um rect und Position
+        super().__init__(x, y, w, h)
+
         self.max_value = max_value
         self.current_value = current_value
-        self.color = color
+        # wenn keine Farbe übergeben, Default aus Theme
+        self.color = color or get_color("progress_fill")
 
     def draw(self, surface):
-        fill_width = int((self.current_value / self.max_value) * self.rect.width)
-        fill_rect = pygame.Rect(self.rect.x, self.rect.y, fill_width, self.rect.height)
+        # gefüllter Bereich
+        pct = 0 if self.max_value == 0 else (self.current_value / self.max_value)
+        fill_w = int(pct * self.rect.width)
+        fill_rect = pygame.Rect(self.rect.x, self.rect.y, fill_w, self.rect.height)
         pygame.draw.rect(surface, self.color, fill_rect)
-        pygame.draw.rect(surface, get_color("border"), self.rect, Config.ui["default"]["border_width"])
+        # Rahmen
+        pygame.draw.rect(surface,
+                         get_color("border"),
+                         self.rect,
+                         Config.ui["default"]["border_width"])
 
     def set_value(self, value):
         self.current_value = max(0, min(self.max_value, value))

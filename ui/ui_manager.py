@@ -4,18 +4,20 @@ It handles adding, updating, drawing, and removing UI elements.
 It also handles events for UI elements.
 ''' 
 import logging
+from ui.components.base import UIElement
 
 logger = logging.getLogger(__name__)
 
 class UIManager:
     def __init__(self):
         # List of managed UI elements
-        self.elements = []
+        self.elements: list[UIElement] = []
         logger.debug("UIManager initialized.")
 
     def add(self, element):
         """Add a new UI element."""
         self.elements.append(element)
+        
         logger.debug(f"Added element: {element}")
 
     def remove(self, element):
@@ -32,7 +34,7 @@ class UIManager:
         logger.debug("Cleared all UI elements.")
 
     def handle_event(self, event):
-        """Dispatch the event to all UI elements."""
+        """Dispatch the event to all UI elements."""       
         for element in list(self.elements):
             if hasattr(element, "handle_event"):
                 try:
