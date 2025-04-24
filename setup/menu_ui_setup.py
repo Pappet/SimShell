@@ -1,57 +1,90 @@
 # setup/menu_ui_setup.py
 
+"""
+Module for constructing the main menu UI.
+"""
+
+import core.events.callbacks as Callbacks
+import setup.config as Config
 from ui.components.button import Button
 from ui.components.label import Label
 from ui.ui_manager import UIManager
 from ui.layout.vertical import VerticalLayout
-import core.events.callbacks as Callbacks
-import setup.config as Config
 
-def create_main_menu_ui(switch_scene_callback, exit_callback):
+
+def create_main_menu_ui(
+    switch_scene_callback: callable,
+    exit_callback: callable
+) -> UIManager:
+    """
+    Create and return the main menu UI manager with title and buttons.
+
+    Args:
+        switch_scene_callback (callable): Function to switch scenes.
+        exit_callback (callable): Function to exit the application.
+
+    Returns:
+        UIManager: Configured UI manager for the main menu.
+    """
     ui = UIManager()
 
+    # Main vertical layout for menu items
     layout = VerticalLayout(x=300, y=100, spacing=10, align="center")
 
-    title_Label = Label("Hauptmenü", (0, 0), Config.fonts["title"]["size"], Config.fonts["title"]["name"])
+    # Title label
+    title_label = Label(
+        "Hauptmenü",
+        x=0,
+        y=0,
+        font_size=Config.fonts["title"]["size"],
+        font_name=Config.fonts["title"]["name"]
+    )
 
+    # Menu buttons
     start_button = Button(
-        (0, 0, 200, 50),
-        "Spiel starten",
-        lambda: switch_scene_callback("game")
+        x=0, y=0,
+        width=200, height=50,
+        text="Spiel starten",
+        callback=lambda: switch_scene_callback("game")
     )
 
     theme_button = Button(
-        (0, 0, 200, 50),
-        "Thema wechseln",
-        lambda: Callbacks.toggle_theme()
+        x=0, y=0,
+        width=200, height=50,
+        text="Thema wechseln",
+        callback=lambda: Callbacks.toggle_theme()
     )
 
     retro_button = Button(
-        (0, 0, 200, 50),
-        "Retro Thema wechseln",
-        lambda: Callbacks.toggle_retro()
+        x=0, y=0,
+        width=200, height=50,
+        text="Retro Thema wechseln",
+        callback=lambda: Callbacks.toggle_retro()
     )
 
     plugins_button = Button(
-        (0, 0, 200, 50),
-        "Plugins Manager",
-        lambda: switch_scene_callback("plugins")
+        x=0, y=0,
+        width=200, height=50,
+        text="Plugins Manager",
+        callback=lambda: switch_scene_callback("plugins")
     )
 
     exit_button = Button(
-        (0, 0, 200, 50),
-        "Beenden",
-        exit_callback 
+        x=0, y=0,
+        width=200, height=50,
+        text="Beenden",
+        callback=exit_callback
     )
 
-    layout.add(title_Label)
+    # Add all elements to the layout
+    layout.add(title_label)
     layout.add(start_button)
     layout.add(theme_button)
     layout.add(retro_button)
     layout.add(plugins_button)
     layout.add(exit_button)
-    
 
+    # Register layout elements with UI manager
     for element in layout.get_elements():
         ui.add(element)
 

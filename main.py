@@ -49,7 +49,7 @@ if __name__ == "__main__":
     # Initialize Pygame and create a debug console
     pygame.init()
     font = pygame.font.SysFont(Config.fonts["debug"]["name"], Config.fonts["debug"]["size"])
-    debug_console = DebugConsole(font, max_lines=Config.ui["debug_console"]["max_lines"], color=get_color("foreground_console"))
+    debug_console = DebugConsole(font, max_lines=Config.ui["debug_console"]["max_lines"])
 
     # Set up logging to file and debug console
     setup_logging(debug_console)

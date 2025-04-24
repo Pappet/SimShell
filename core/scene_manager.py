@@ -1,60 +1,111 @@
 # core/scene_manager.py
 
-'''
+"""
 SceneManager class to manage different scenes in the game.
-It handles switching between scenes, updating them, and drawing them on the screen.
-'''
+It handles switching, instantiation, caching, updating, and drawing.
+"""
 
-import scenes
-from core.scene_registry import scene_registry
 import logging
+from core.scene_registry import scene_registry
 
 logger = logging.getLogger(__name__)
 
 class SceneManager:
-    def __init__(self, context, app):
-        self.app = app
+    """
+    Manager for game scenes: handles instantiation, caching, and transitions.
+    """
+    def __init__(
+        self,
+        context,
+        app
+    ):
+        """
+        Initialize the SceneManager.
+
+        Args:
+            context: GameContext providing dependencies for scenes.
+            app: GameApp instance for exit_game callback.
+        """
         self.context = context
+        self.app = app
         self.current_scene = None
         self.scene_cache = {}
         logger.debug("SceneManager initialized.")
 
-    def switch_scene(self, key):
+    def switch_scene(
+        self,
+        key: str
+    ):
+        """
+        Switch to the scene identified by key. Caches scenes on first use.
+
+        Args:
+            key (str): Scene registry key.
+        """
         if key not in self.scene_cache:
             if key == "menu":
                 from scenes.main_menu_scene import MainMenuScene
                 scene = MainMenuScene(
-                    self.context,
-                    self.switch_scene,
-                    self.app.exit_game
+                    context=self.context,
+                    switch_scene_callback=self.switch_scene,
+                    exit_callback=self.app.exit_game
                 )
-            elif key == "plugins":
-                from scenes.plugin_manager_scene import PluginManagerScene
-                scene = PluginManagerScene(
-                    self.app
-                )
-            # alle anderen Scenes wie gehabt
-            elif key in scene_registry:
-                scene = scene_registry[key](self.context, self.switch_scene)
             else:
-                logger.warning(f"Scene '{key}' not found in registry.")
-                return
-
+                SceneClass = scene_registry.get(key)
+                if not SceneClass:
+                    logger.warning(f"Scene '{key}' not found in registry.")
+                    return
+                scene = SceneClass(
+                    context=self.context,
+                    switch_scene_callback=self.switch_scene
+                )
             self.scene_cache[key] = scene
-        self.switch_to(self.scene_cache[key])
+        self._activate(self.scene_cache[key])
 
-    def switch_to(self, scene):
-        logger.debug(f"Switching to scene: {scene}")
+    def _activate(
+        self,
+        scene
+    ):
+        """
+        Activate the given scene as current.
+
+        Args:
+            scene: Scene instance to activate.
+        """
         self.current_scene = scene
+        logger.debug(f"Switched to scene: {scene}")
 
-    def handle_event(self, event):
+    def handle_event(
+        self,
+        event
+    ):
+        """
+        Forward input events to the current scene.
+
+        Args:
+            event: Pygame event to handle.
+        """
         if self.current_scene:
             self.current_scene.handle_event(event)
 
-    def update(self):
+    def update(
+        self
+    ):
+        """
+        Update the current scene.
+        """
         if self.current_scene:
             self.current_scene.update()
 
-    def draw(self, surface):
+    def draw(
+        self,
+        surface
+    ):
+        """
+        Draw the current scene onto the given surface.
+
+        Args:
+            surface: Pygame surface to draw on.
+        """
         if self.current_scene:
             self.current_scene.draw(surface)

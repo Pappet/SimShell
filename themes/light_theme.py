@@ -6,8 +6,8 @@ theme = {
     "panel_bg": (225, 225, 225),           # Panels, windows (very light gray)
     "border": (150, 150, 150),             # Panel outlines or dividers (medium gray)
 
-    "background_console": (255, 255, 255, 192),  # Semi-transparent white for console background
-    "foreground_console": (0, 0, 0),             # Black for console text
+    "background_console": (0, 0, 0, 128),  # Semi-transparent black for console background
+    "foreground_console": (0, 255, 0),     # Neon green console text
 
     "button_default": (230, 230, 230),     # Default button color (very light gray)
     "button_hover": (210, 210, 210),       # Button hover color (slightly darker)

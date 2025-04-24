@@ -33,6 +33,7 @@ ui:
     spacing: 10
   debug_console:
     max_lines: 10
+    padding: 5
     pos:
     - 10
     - 10

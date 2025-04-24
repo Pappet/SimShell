@@ -1,41 +1,50 @@
 # core/plugin_manager.py
 
-import os
+"""
+PluginManager is responsible for discovering, loading, enabling, and disabling plugins.
+It reads plugin manifests, resolves dependencies, and dispatches plugin lifecycle hooks.
+"""
+
 import importlib
 import logging
 from pathlib import Path
+from typing import Any, Dict, List, Set
 
-import yaml  # verlangt, dass PyYAML installiert ist
-from setup.config import paths, save
+from yaml import safe_load, safe_dump
+
+from setup.config import paths
 
 logger = logging.getLogger(__name__)
 
 class PluginManager:
     """
-    Verantwortlich für:
-      - Discovery aller Plugins im Ordner paths['plugins_path']
-      - Einlesen der plugin.yaml-Manifeste (name, module, enabled, depends)
-      - Abhängigkeits-Auflösung (topologische Sortierung)
-      - Laden (on_init), Aktivieren, Deaktivieren (on_shutdown) von Plugins
-      - Hook-Dispatcher (on_update, on_render, etc.)
+    Manages plugin lifecycle: discovery, dependency resolution, loading,
+    enabling/disabling, and hook dispatching.
     """
+    def __init__(self, app: Any):
+        """
+        Initialize the PluginManager.
 
-    def __init__(self, app):
-        self.app         = app
+        Args:
+            app (Any): Reference to the main application instance.
+        """
+        self.app = app
         self.plugin_base = Path(paths["plugins_path"])
-        # 1) alle Manifeste einlesen
-        self.available   = self._discover_plugins(self.plugin_base)
-        # 2) Dependents-Map bauen (wer hängt von wem ab)
-        self.dependents  = self._build_dependents_map()
-        # 3) geladene Instanzen speichern
-        self.loaded      = {}   # module_path -> instance
-        self.plugins     = []   # Liste der aktiven Plugin-Instanzen
+        self.available: List[Dict[str, Any]] = self._discover_plugins(self.plugin_base)
+        self.dependents: Dict[str, Set[str]] = self._build_dependents_map()
+        self.loaded: Dict[str, Any] = {}
+        self.plugins: List[Any] = []
 
-    def _discover_plugins(self, base_dir: Path):
-        """Scannt Unterordner und liest plugin.yaml in jedem ein."""
-        plugins = []
+    def _discover_plugins(self, base_dir: Path) -> List[Dict[str, Any]]:
+        """
+        Scan subdirectories for plugin.yaml manifests.
+
+        Returns:
+            List of plugin metadata dictionaries.
+        """
+        plugins: List[Dict[str, Any]] = []
         if not base_dir.exists():
-            logger.warning(f"Plugin-Verzeichnis '{base_dir}' nicht gefunden.")
+            logger.warning("Plugins directory '%s' not found.", base_dir)
             return plugins
 
         for sub in base_dir.iterdir():
@@ -43,47 +52,50 @@ class PluginManager:
                 continue
             manifest = sub / "plugin.yaml"
             if not manifest.exists():
-                logger.debug(f"Kein Manifest in {sub}, übersprungen.")
+                logger.debug("Skipping '%s': no manifest.", sub)
                 continue
             try:
-                data = yaml.safe_load(manifest.read_text(encoding="utf-8")) or {}
+                data = safe_load(manifest.read_text(encoding="utf-8")) or {}
                 plugins.append({
-                    "name":    data["name"],
-                    "module":  data["module"],
+                    "name": data["name"],
+                    "module": data["module"],
                     "enabled": data.get("enabled", False),
                     "depends": data.get("depends", []),
                     "manifest": manifest,
                 })
-                logger.info(f"Plugin entdeckt: {data['name']}")
+                logger.info("Discovered plugin: %s", data["name"])
             except Exception as e:
-                logger.error(f"Fehler beim Lesen von {manifest}: {e}", exc_info=True)
+                logger.error("Error reading manifest '%s': %s", manifest, e, exc_info=True)
         return plugins
 
-    def _build_dependents_map(self):
-        """Invertiert 'depends' zu einer Dependents-Map."""
+    def _build_dependents_map(self) -> Dict[str, Set[str]]:
+        """
+        Build a mapping from plugin names to sets of dependents.
+
+        Returns:
+            A dict where keys are plugin names and values are sets of names depending on the key.
+        """
         deps = {m["name"]: set(m.get("depends", [])) for m in self.available}
-        dependents = {name: set() for name in deps}
+        dependents: Dict[str, Set[str]] = {name: set() for name in deps}
         for name, reqs in deps.items():
             for dep in reqs:
                 if dep in dependents:
                     dependents[dep].add(name)
                 else:
-                    logger.warning(f"Unbekannte Abhängigkeit '{dep}' in Plugin '{name}'")
+                    logger.warning("Unknown dependency '%s' for plugin '%s'.", dep, name)
         return dependents
 
-    def _resolve_load_order(self):
+    def _resolve_load_order(self) -> List[str]:
         """
-        Topologische Sortierung aller aktivierten Plugins.
-        Gibt eine Liste von Plugin-Namen in Lade-Reihenfolge zurück.
+        Resolve plugin load order with topological sort of enabled plugins.
+
+        Returns:
+            Ordered list of plugin names.
         """
-        # working copy der Abhängigkeiten (nur enabled)
-        deps = {
-            m["name"]: set(m.get("depends", []))
-            for m in self.available if m["enabled"]
-        }
-        order = []
-        # alle ohne deps zuerst
+        deps = {m["name"]: set(m.get("depends", [])) for m in self.available if m["enabled"]}
+        order: List[str] = []
         queue = [n for n, reqs in deps.items() if not reqs]
+
         while queue:
             name = queue.pop(0)
             order.append(name)
@@ -95,104 +107,120 @@ class PluginManager:
             deps.pop(name, None)
 
         if deps:
-            # Kreis oder fehlende Abhängigkeit
-            logger.error(f"Zirkuläre oder fehlende Abhängigkeiten: {deps}")
-            # fallback: in Originalreihenfolge
+            logger.error("Circular or missing dependencies detected: %s", deps)
             return [m["name"] for m in self.available if m["enabled"]]
         return order
 
-    def load_plugins(self):
-        """Lädt alle Plugins nach Abhängigkeits-Reihenfolge."""
+    def load_plugins(self) -> None:
+        """
+        Load all enabled plugins in resolved order.
+        """
         for name in self._resolve_load_order():
             meta = next((m for m in self.available if m["name"] == name), None)
             if meta:
                 self._load(meta)
 
-    def _load(self, meta):
-        """Importiert ein einzelnes Plugin-Modul und ruft on_init() auf."""
+    def _load(self, meta: Dict[str, Any]) -> None:
+        """
+        Import a plugin module and call its on_init.
+
+        Args:
+            meta: Metadata dict for the plugin.
+        """
         module_path = meta["module"]
         try:
-            mod = importlib.import_module(module_path)
-            cls = getattr(mod, "PluginImpl")
-            inst = cls(self.app)
-            self.loaded[module_path] = inst
-            self.plugins.append(inst)
-            if hasattr(inst, "on_init"):
-                inst.on_init()
-            logger.info("Plugin geladen: %s", meta["name"])
+            module = importlib.import_module(module_path)
+            cls = getattr(module, "PluginImpl")
+            instance = cls(self.app)
+            self.loaded[module_path] = instance
+            self.plugins.append(instance)
+            if hasattr(instance, "on_init"):
+                instance.on_init()
+            logger.info("Loaded plugin: %s", meta["name"])
         except Exception:
-            logger.exception("Fehler beim Laden von %s", meta["name"])
+            logger.exception("Failed to load plugin '%s'.", meta["name"])
 
-    def enable_plugin(self, name: str):
+    def enable_plugin(self, name: str) -> None:
         """
-        Aktiviert ein Plugin und all seine Dependencies rekursiv.
-        Speichert danach die Config.
+        Enable a plugin and its dependencies, then save manifest.
+
+        Args:
+            name: Plugin name to enable.
         """
         meta = next((m for m in self.available if m["name"] == name), None)
         if not meta or meta["enabled"]:
             return
 
-        # Dependencies zuerst aktivieren
         for dep in meta.get("depends", []):
-            dep_meta = next((m for m in self.available if m["name"] == dep), None)
-            if dep_meta and not dep_meta["enabled"]:
-                self.enable_plugin(dep)
+            self.enable_plugin(dep)
 
-        # dieses Plugin aktivieren
         meta["enabled"] = True
-        mdata = yaml.safe_load(meta["manifest"].read_text()) or {}
-        mdata["enabled"] = True
-        meta["manifest"].write_text(yaml.safe_dump(mdata, sort_keys=False))
+        data = safe_load(meta["manifest"].read_text(encoding="utf-8")) or {}
+        data["enabled"] = True
+        meta["manifest"].write_text(safe_dump(data, sort_keys=False))
         self._load(meta)
-        logger.info("Plugin aktiviert: %s", name)
+        logger.info("Enabled plugin: %s", name)
 
-    def disable_plugin(self, name: str):
+    def disable_plugin(self, name: str) -> None:
         """
-        Deaktiviert ein Plugin und alle davon abhängigen Plugins rekursiv.
-        Ruft on_shutdown() jedes Plugin ab, entfernt Instanz und speichert Config.
+        Disable a plugin and its dependents, call on_shutdown, and save manifest.
+
+        Args:
+            name: Plugin name to disable.
         """
         meta = next((m for m in self.available if m["name"] == name), None)
         if not meta or not meta["enabled"]:
             return
 
-        # zuerst alle Dependents ausschalten
         for child in list(self.dependents.get(name, [])):
-            child_meta = next((m for m in self.available if m["name"] == child), None)
-            if child_meta and child_meta["enabled"]:
-                self.disable_plugin(child)
+            self.disable_plugin(child)
 
-        # dann dieses Plugin
         module_path = meta["module"]
-        inst = self.loaded.pop(module_path, None)
-        if inst in self.plugins:
-            self.plugins.remove(inst)
-        if inst and hasattr(inst, "on_shutdown"):
+        instance = self.loaded.pop(module_path, None)
+        if instance in self.plugins:
+            self.plugins.remove(instance)
+        if instance and hasattr(instance, "on_shutdown"):
             try:
-                inst.on_shutdown()
-                logger.info("Plugin on_shutdown aufgerufen: %s", name)
+                instance.on_shutdown()
+                logger.info("Called on_shutdown for plugin: %s", name)
             except Exception:
-                logger.exception("Fehler in on_shutdown von %s", name)
+                logger.exception("Error in on_shutdown of plugin '%s'.", name)
 
         meta["enabled"] = False
-        mdata = yaml.safe_load(meta["manifest"].read_text()) or {}
-        mdata["enabled"] = False
-        meta["manifest"].write_text(yaml.safe_dump(mdata, sort_keys=False))
-        logger.info("Plugin deaktiviert: %s", name)
+        data = safe_load(meta["manifest"].read_text(encoding="utf-8")) or {}
+        data["enabled"] = False
+        meta["manifest"].write_text(safe_dump(data, sort_keys=False))
+        logger.info("Disabled plugin: %s", name)
 
-    # Hook-Dispatcher – von GameApp aufgerufen:
-    def on_init(self):     self._dispatch("on_init")
-    def on_start(self):    self._dispatch("on_start")
-    def on_event(self, e): self._dispatch("on_event", e)
-    def on_update(self, dt):   self._dispatch("on_update", dt)
-    def on_render(self, surf): self._dispatch("on_render", surf)
-    def on_shutdown(self): self._dispatch("on_shutdown")
+    def on_init(self) -> None:
+        self._dispatch("on_init")
 
-    def _dispatch(self, hook_name, *args, **kwargs):
-        """Interne Hilfsmethode, um Hooks auf alle aktiven Plugins anzuwenden."""
+    def on_start(self) -> None:
+        self._dispatch("on_start")
+
+    def on_event(self, event: Any) -> None:
+        self._dispatch("on_event", event)
+
+    def on_update(self, dt: float) -> None:
+        self._dispatch("on_update", dt)
+
+    def on_render(self, surface: Any) -> None:
+        self._dispatch("on_render", surface)
+
+    def on_shutdown(self) -> None:
+        self._dispatch("on_shutdown")
+
+    def _dispatch(self, hook_name: str, *args: Any, **kwargs: Any) -> None:
+        """
+        Dispatch a plugin hook to all active plugins.
+
+        Args:
+            hook_name: Name of the plugin hook method.
+        """
         for plugin in list(self.plugins):
             fn = getattr(plugin, hook_name, None)
             if callable(fn):
                 try:
                     fn(*args, **kwargs)
                 except Exception:
-                    logger.exception("Plugin-Fehler in %s.%s", plugin, hook_name)
+                    logger.exception("Error in plugin '%s'.%s", plugin, hook_name)

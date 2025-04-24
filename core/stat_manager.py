@@ -1,102 +1,162 @@
 # core/stat_manager.py
+
+"""
+StatManager handles game statistics: loading configuration, clamping values,
+and dispatching change events through the event manager.
+"""
+
 import json
+import logging
+from pathlib import Path
+from typing import Any, Dict
+from collections import namedtuple
+
 from core.events.event_types import EventType
 from core.decorators import ensure_key
-from collections import namedtuple
 import setup.config as Config
-import logging
-
-
-'''
-StatManager class for managing game statistics.
-It provides methods to get, set, and modify statistics like energy.
-It also integrates with an event manager to dispatch events when statistics change.
-'''
 
 logger = logging.getLogger(__name__)
-# 1. Metadaten‑Definition für jede Stat
+
+# Named tuple to store stat configuration metadata
 StatConfig = namedtuple("StatConfig", ["initial", "min", "max", "event_type"])
 
 class StatManager:
-    def __init__(self, event_manager, config_path=Config.paths["stats_config"]):
-        self.event_manager = event_manager
+    """
+    Manages game statistics and integrates with an EventManager to dispatch
+    events when stat values change.
+    """
+    def __init__(
+        self,
+        event_manager: Any,
+        config_path: str = None
+    ) -> None:
+        """
+        Initialize the StatManager and load stat configurations from JSON.
 
-        # 1) JSON‑Datei einlesen
+        Args:
+            event_manager (Any): EventManager to dispatch stat change events.
+            config_path (str, optional): Path to the stats config file.
+                Defaults to Config.paths['stats_config'].
+        """
+        self.event_manager = event_manager
+        # Use default path if none provided
+        self.config_path = config_path or Config.paths["stats_config"]
+
+        # Load raw JSON configuration
         try:
-            with open(config_path, "r") as f:
-                raw = json.load(f)
+            with open(self.config_path, "r", encoding="utf-8") as f:
+                raw: Dict[str, Any] = json.load(f)
         except (FileNotFoundError, json.JSONDecodeError) as e:
-            logger.error(f"Error loading stats config: {e}", exc_info=True)
+            logger.error(f"Error loading stats config from {self.config_path}: {e}", exc_info=True)
             raw = {}
 
-        # 2) Aus rohen Daten StatConfig‐Mappings erzeugen
-        self._stat_configs = {}
+        # Build StatConfig mappings
+        self._stat_configs: Dict[str, StatConfig] = {}
         for key, cfg in raw.items():
-            # EventType aus String holen, Standard: None
-            ev = None
+            ev_type = None
             try:
-                ev = EventType[cfg["event_type"]]
-            except KeyError:
-                logger.error(f"Unknown event_type '{cfg['event_type']}' for stat '{key}'", exc_info=True)
+                ev_type = EventType[cfg.get("event_type")]
+            except Exception:
+                logger.error(
+                    f"Unknown event_type '{cfg.get('event_type')}' for stat '{key}'", exc_info=True
+                )
             self._stat_configs[key] = StatConfig(
                 initial=cfg.get("initial", 0),
                 min=cfg.get("min", 0),
                 max=cfg.get("max", cfg.get("initial", 0)),
-                event_type=ev
+                event_type=ev_type
             )
 
-        # 3) stats‐ und event_map‐Dicts automatisch erzeugen
-        self.stats     = {k: c.initial for k, c in self._stat_configs.items()}
-        # 4) event_map: stat_name -> event_type
-        self._event_map = {k: c.event_type for k, c in self._stat_configs.items()}
+        # Initialize stat values and event map
+        self.stats: Dict[str, float] = {k: sc.initial for k, sc in self._stat_configs.items()}
+        self._event_map: Dict[str, EventType] = {k: sc.event_type for k, sc in self._stat_configs.items()}
 
-        logger.debug("StatManager initialized.")
-        logger.debug(f"Stats: {self.stats}")
-        logger.debug(f"Event map: {self._event_map}")
+        logger.debug(f"StatManager initialized with stats: {self.stats}")
 
     @ensure_key
-    def get(self, key):
-        logger.debug(f"Getting stat '{key}': {self.stats[key]}")
-        return self.stats.get(key, 0)
-    
-    @ensure_key
-    def get_max(self, key):
-        logger.debug(f"Getting max from stat '{key}': {self._stat_configs[key].max}")
-        return self._stat_configs[key].max
-    
-    @ensure_key
-    def get_min(self, key):
-        logger.debug(f"Getting min from stat '{key}': {self._stat_configs[key].min}")
-        return self._stat_configs[key].min
+    def get(self, key: str) -> float:
+        """
+        Get the current value of a statistic.
 
-    @ensure_key    
-    def set(self, key, value):
+        Args:
+            key (str): Name of the statistic.
+
+        Returns:
+            float: Current stat value.
+        """
+        value = self.stats.get(key, 0)
+        logger.debug(f"Getting stat '{key}': {value}")
+        return value
+
+    @ensure_key
+    def get_max(self, key: str) -> float:
+        """
+        Get the maximum allowed value for a statistic.
+
+        Args:
+            key (str): Name of the statistic.
+
+        Returns:
+            float: Maximum stat value.
+        """
+        max_value = self._stat_configs[key].max
+        logger.debug(f"Getting max for stat '{key}': {max_value}")
+        return max_value
+
+    @ensure_key
+    def get_min(self, key: str) -> float:
+        """
+        Get the minimum allowed value for a statistic.
+
+        Args:
+            key (str): Name of the statistic.
+
+        Returns:
+            float: Minimum stat value.
+        """
+        min_value = self._stat_configs[key].min
+        logger.debug(f"Getting min for stat '{key}': {min_value}")
+        return min_value
+
+    @ensure_key
+    def set(self, key: str, value: float) -> bool:
+        """
+        Set a new value for a statistic, clamped between its min and max,
+        and dispatch an event if the value changed.
+
+        Args:
+            key (str): Name of the statistic.
+            value (float): New stat value.
+
+        Returns:
+            bool: True if the value changed, False otherwise.
+        """
         cfg = self._stat_configs[key]
         old_value = self.stats[key]
-
-        # 2. Clamp auf min/max
         new_value = max(cfg.min, min(cfg.max, value))
-
-        # 3. Wenn kein Unterschied, abbrechen
         if new_value == old_value:
             logger.debug(
-                f"Stat '{key}' remains unchanged at {old_value} (clamped between {cfg.min}–{cfg.max})."
+                f"Stat '{key}' unchanged at {old_value} (clamped {cfg.min}-{cfg.max})."
             )
             return False
-
-        # 4. Andernfalls updaten und dispatchen
         self.stats[key] = new_value
-        logger.debug(f"Setting stat '{key}' to {new_value}")
-        event = self._event_map.get(key)
-        if event:
-            self.event_manager.dispatch(event, new_value=new_value)
-
+        logger.debug(f"Stat '{key}' set to {new_value}")
+        event_type = self._event_map.get(key)
+        if event_type:
+            self.event_manager.dispatch(event_type, new_value=new_value)
         return True
 
     @ensure_key
-    def modify(self, key, delta):        
-        logger.debug(
-            f"Modifying stat '{key}' by {delta}. Current value: {self.stats[key]}"
-        )
-        # set() loggt und dispatcht – und gibt True/False zurück
+    def modify(self, key: str, delta: float) -> bool:
+        """
+        Modify a statistic by a delta amount and dispatch change event.
+
+        Args:
+            key (str): Name of the statistic.
+            delta (float): Amount to change the stat by.
+
+        Returns:
+            bool: True if the value changed, False otherwise.
+        """
+        logger.debug(f"Modifying stat '{key}' by {delta}")
         return self.set(key, self.get(key) + delta)

@@ -26,15 +26,16 @@ class GameApp:
         self.clock = pygame.time.Clock()
         self.config = Config
         self.debug_console = debug_console
-        self.context = GameContext()
+
+        self.plugin_manager = PluginManager(app=self)
+        self.plugin_manager.load_plugins()
+
+        self.context = GameContext(self.plugin_manager)
         self.scene_manager = SceneManager(self.context, app=self)
                 
         self.running = True
         self.debug = False
         self.scene_manager.switch_scene(Config.scenes["initial"])
-
-        self.plugin_manager = PluginManager(app=self)
-        self.plugin_manager.load_plugins()
 
 
     def run(self):
