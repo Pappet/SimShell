@@ -1,16 +1,14 @@
 # setup/plugin_ui_setup.py
 
 """
-Module for constructing the Plugin Manager UI.
+Module for constructing the Plugin Manager UI using the Table component.
+Table spans the full window width minus padding.
 """
 
 import setup.config as Config
+from ui.components.table import Table
 from ui.components.button import Button
-from ui.components.label import Label
-from ui.components.panel import Panel
 from ui.ui_manager import UIManager
-from ui.layout.vertical import VerticalLayout
-from ui.layout.horizontal import HorizontalLayout
 
 
 def create_plugin_manager_ui(
@@ -19,11 +17,12 @@ def create_plugin_manager_ui(
     switch_scene_callback: callable
 ) -> UIManager:
     """
-    Create and return the UI for the plugin manager scene.
+    Create and return the UI for the plugin manager scene using a full-width Table
+    listing plugins with inline toggle buttons.
 
     Args:
-        plugin_manager: Object providing .available list and enable/disable methods.
-        toggle_callback (callable): Function to call when toggling a plugin (receives plugin metadata).
+        plugin_manager: Provides .available list of plugin metadata.
+        toggle_callback (callable): Called with plugin metadata to toggle enable/disable.
         switch_scene_callback (callable): Function to switch back to main menu.
 
     Returns:
@@ -31,44 +30,52 @@ def create_plugin_manager_ui(
     """
     ui = UIManager()
 
-    # Main layout for plugin entries
-    layout = VerticalLayout(x=50, y=50, spacing=15, align="left")
+        # Calculate full-width table with padding
+    padding = Config.ui['default']['padding']
+    screen_w = Config.screen['width']
+    available_w = screen_w - padding * 2
 
-    # Title label
-    title_label = Label(
-        text="Plugin Manager",
-        x=0, y=0,
-        font_size=Config.fonts["title"]["size"],
-        font_name=Config.fonts["title"]["name"]
+    # Allocate more width to the name column, less to status and action
+    name_w = int(available_w * 0.6)
+    status_w = int(available_w * 0.2)
+    action_w = available_w - name_w - status_w
+    column_widths = [name_w, status_w, action_w]
+
+    # Instantiate the Table
+    table = Table(
+        x=padding,
+        y=80,
+        column_widths=column_widths,
+        row_height=30,
+        headers=["Plugin", "Status", "Action"],
+        font_size=Config.fonts['default']['size'],
+        font_name=Config.fonts['default']['name']
     )
-    layout.add(title_label)
 
-    # Plugin entries
+    # Populate table rows with data and inline toggle Button
     for meta in plugin_manager.available:
-        row = HorizontalLayout(x=0, y=0, spacing=20)
-        name_label = Label(text=meta["name"], x=0, y=0)
-        toggle_text = "On" if meta["enabled"] else "Off"
-        toggle_button = Button(
+        status = "On" if meta['enabled'] else "Off"
+        toggle_btn = Button(
             x=0, y=0,
-            width=80, height=30,
-            text=toggle_text,
+            width=column_widths[2] - 10,
+            height=table.row_height - 10,
+            text="Toggle",
             callback=lambda m=meta: toggle_callback(m)
         )
-        row.add(name_label)
-        row.add(toggle_button)
-        layout.add(row)
+        table.add_row([meta['name'], status, toggle_btn])
 
-    # Back button to return to main menu
+    ui.add(table)
+
+    # Back button below the table
+    back_y = table.y + table.height + padding
     back_button = Button(
-        x=0, y=0,
-        width=200, height=40,
+        x=padding,
+        y=back_y,
+        width=200,
+        height=40,
         text="Back to Menu",
         callback=lambda: switch_scene_callback("menu")
     )
-    layout.add(back_button)
-
-    # Register all layout elements with UIManager
-    for element in layout.get_elements():
-        ui.add(element)
+    ui.add(back_button)
 
     return ui
