@@ -11,6 +11,7 @@ It is the entry point for the game application.
 import sys
 import logging
 import pygame
+from core.events.event_types import EventType
 import setup.config as Config
 from core.plugin_manager import PluginManager
 from core.scene_manager import SceneManager
@@ -26,13 +27,11 @@ class GameApp:
         self.clock = pygame.time.Clock()
         self.config = Config
         self.debug_console = debug_console
-
         self.plugin_manager = PluginManager(app=self)
-        self.plugin_manager.load_plugins()
-
         self.context = GameContext(self.plugin_manager)
         self.scene_manager = SceneManager(self.context, app=self)
-                
+        
+        self.plugin_manager.load_plugins()
         self.running = True
         self.debug = False
         self.scene_manager.switch_scene(Config.scenes["initial"])
@@ -40,6 +39,10 @@ class GameApp:
 
     def run(self):
         self.plugin_manager.on_init()
+        self.context.event_manager.register(
+            EventType.UI_BUTTON_CLICKED,
+            lambda btn: self.plugin_manager.on_event(EventType.UI_BUTTON_CLICKED)
+        )
         self.plugin_manager.on_start()
 
         while self.running:

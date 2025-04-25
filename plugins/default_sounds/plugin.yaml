@@ -1,0 +1,4 @@
+name: Default-Sounds
+module: plugins.default_sounds.default_sounds
+enabled: true
+depends: []

@@ -13,6 +13,7 @@ from ui.layout.vertical import VerticalLayout
 
 
 def create_main_menu_ui(
+    event_manager,
     switch_scene_callback: callable,
     exit_callback: callable
 ) -> UIManager:
@@ -45,35 +46,40 @@ def create_main_menu_ui(
         x=0, y=0,
         width=200, height=50,
         text="Spiel starten",
-        callback=lambda: switch_scene_callback("game")
+        callback=lambda: switch_scene_callback("game"),
+        event_manager=event_manager
     )
 
     theme_button = Button(
         x=0, y=0,
         width=200, height=50,
         text="Thema wechseln",
-        callback=lambda: Callbacks.toggle_theme()
+        callback=lambda: Callbacks.toggle_theme(),
+        event_manager=event_manager
     )
 
     retro_button = Button(
         x=0, y=0,
         width=200, height=50,
         text="Retro Thema wechseln",
-        callback=lambda: Callbacks.toggle_retro()
+        callback=lambda: Callbacks.toggle_retro(),
+        event_manager=event_manager
     )
 
     plugins_button = Button(
         x=0, y=0,
         width=200, height=50,
         text="Plugins Manager",
-        callback=lambda: switch_scene_callback("plugins")
+        callback=lambda: switch_scene_callback("plugins"),
+        event_manager=event_manager
     )
 
     exit_button = Button(
         x=0, y=0,
         width=200, height=50,
         text="Beenden",
-        callback=exit_callback
+        callback=exit_callback,
+        event_manager=event_manager
     )
 
     # Add all elements to the layout

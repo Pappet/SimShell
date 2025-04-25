@@ -36,6 +36,7 @@ class PluginManagerScene:
         # Build UI manager via setup module
         self.ui = create_plugin_manager_ui(
             self.pm,
+            event_manager=self.context.event_manager,
             toggle_callback=self._toggle,
             switch_scene_callback=self.switch_scene
         )
@@ -53,6 +54,7 @@ class PluginManagerScene:
         # Rebuild UI to reflect new states
         self.ui = create_plugin_manager_ui(
             self.pm,
+            event_manager=self.context.event_manager,
             toggle_callback=self._toggle,
             switch_scene_callback=self.switch_scene
         )

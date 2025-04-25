@@ -38,7 +38,8 @@ class MainMenuScene:
         # Build UI using setup module
         self.ui = create_main_menu_ui(
             switch_scene_callback=self.switch_scene,
-            exit_callback=self.exit
+            exit_callback=self.exit,
+            event_manager=self.context.event_manager
         )
 
         logger.debug("MainMenuScene initialized.")

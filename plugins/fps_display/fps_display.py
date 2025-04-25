@@ -16,4 +16,3 @@ class PluginImpl(Plugin):
 
     def on_shutdown(self):
         pass
-        

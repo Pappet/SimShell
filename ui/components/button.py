@@ -14,7 +14,8 @@ class Button(UIElement):
         width: int,
         height: int,
         text: str,
-        callback: callable
+        callback: callable,
+        event_manager=None
     ):
         """
         Initialize the button.
@@ -30,6 +31,7 @@ class Button(UIElement):
         super().__init__(x, y, width, height)
         self.text = text
         self.callback = callback
+        self.event_manager = event_manager
         self.hovered = False
 
         font_name = Config.fonts["default"]["name"]
@@ -64,6 +66,9 @@ class Button(UIElement):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if self.rect.collidepoint(event.pos):
                 self.callback()
+                if self.event_manager:
+                    from core.events.event_types import EventType
+                    self.event_manager.dispatch(EventType.UI_BUTTON_CLICKED, self)
 
     def update(self, mouse_pos: tuple[int, int]):
         """
