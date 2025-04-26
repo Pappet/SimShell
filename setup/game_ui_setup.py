@@ -67,14 +67,16 @@ def create_game_ui(
         width=100, height=50,
         text="-10",
         callback=lambda: Callbacks.modify_stat(stat_manager, energy_key, -10),
-        event_manager=event_manager
+        event_manager=event_manager,
+        sound_key="sup_click"
     )
     energy_button_add = Button(
         x=0, y=0,
         width=100, height=50,
         text="+10",
         callback=lambda: Callbacks.modify_stat(stat_manager, energy_key, 10),
-        event_manager=event_manager
+        event_manager=event_manager,
+        sound_key="add_click"
     )
 
     row_energy = HorizontalLayout(x=0, y=0, spacing=15)
@@ -110,14 +112,16 @@ def create_game_ui(
         width=100, height=50,
         text="-10",
         callback=lambda: Callbacks.modify_stat(stat_manager, health_key, -10),
-        event_manager=event_manager
+        event_manager=event_manager,
+        sound_key="sup_click"
     )
     health_button_add = Button(
         x=0, y=0,
         width=100, height=50,
         text="+10",
         callback=lambda: Callbacks.modify_stat(stat_manager, health_key, 10),
-        event_manager=event_manager
+        event_manager=event_manager,
+        sound_key="add_click"
     )
 
     row_health = HorizontalLayout(x=0, y=0, spacing=15)
@@ -142,7 +146,8 @@ def create_game_ui(
         width=200, height=40,
         text="Zurück zum Menü",
         callback=lambda: switch_scene_callback("menu"),
-        event_manager=event_manager
+        event_manager=event_manager,
+        sound_key="exit_click"
     )
 
     # Main vertical layout for the scene

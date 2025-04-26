@@ -1,4 +1,5 @@
 # core/sound_manager.py
+
 import pygame
 import logging
 
@@ -12,13 +13,14 @@ class SoundManager:
 
 
     def load(self, key: str, filepath: str):
-        """Lädt eine Sound-Datei unter dem angegebenen Schlüssel."""
-        self.sounds[key] = pygame.mixer.Sound(filepath)
-        logger.debug("Loaded Sound: %s", self.sounds[key])
+        try:
+            self.sounds[key] = pygame.mixer.Sound(filepath)
+            logging.info(f"Loaded sound: {key} from {filepath}")
+        except Exception as e:
+            logging.error(f"Failed to load sound '{key}': {e}")
 
 
     def play(self, key: str):
-        """Spielt den Sound zum Schlüssel, falls vorhanden."""
         sound = self.sounds.get(key)
         if sound:
             sound.play()

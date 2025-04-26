@@ -2,7 +2,7 @@
 from abc import ABC, abstractmethod
 
 class Plugin(ABC):
-    """Basic‑Class for all Plugins."""
+    """Basic-Class for all Plugins."""
 
     def __init__(self, app):
         self.app = app

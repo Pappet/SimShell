@@ -15,7 +15,8 @@ class Button(UIElement):
         height: int,
         text: str,
         callback: callable,
-        event_manager=None
+        event_manager=None,
+        sound_key: str = None
     ):
         """
         Initialize the button.
@@ -37,6 +38,7 @@ class Button(UIElement):
         font_name = Config.fonts["default"]["name"]
         font_size = Config.fonts["default"]["size"]
         self.font = pygame.font.SysFont(font_name, font_size)
+        self.sound_key = sound_key
 
     def draw(self, surface: pygame.Surface):
         """

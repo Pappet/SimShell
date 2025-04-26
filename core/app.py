@@ -22,9 +22,13 @@ logger = logging.getLogger(__name__)
 
 class GameApp:
     def __init__(self, debug_console=None):
+        self.running = True
+        self.debug = False
+
         self.screen = pygame.display.set_mode((Config.screen["width"], Config.screen["height"]))
         pygame.display.set_caption(Config.screen["title"])
         self.clock = pygame.time.Clock()
+
         self.config = Config
         self.debug_console = debug_console
         self.plugin_manager = PluginManager(app=self)
@@ -32,17 +36,17 @@ class GameApp:
         self.scene_manager = SceneManager(self.context, app=self)
         
         self.plugin_manager.load_plugins()
-        self.running = True
-        self.debug = False
+        self.plugin_manager.on_init()
+        
+        self.context.event_manager.register(
+                    EventType.UI_BUTTON_CLICKED,
+                    self.plugin_manager.on_event
+        )
+
         self.scene_manager.switch_scene(Config.scenes["initial"])
 
 
-    def run(self):
-        self.plugin_manager.on_init()
-        self.context.event_manager.register(
-            EventType.UI_BUTTON_CLICKED,
-            lambda btn: self.plugin_manager.on_event(EventType.UI_BUTTON_CLICKED)
-        )
+    def run(self):        
         self.plugin_manager.on_start()
 
         while self.running:
@@ -53,9 +57,9 @@ class GameApp:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
                     self.debug = not self.debug
                     logger.debug("Debug mode is now {}".format("on" if self.debug else "off"))
-
-                self.plugin_manager.on_event(event)
+                
                 self.scene_manager.handle_event(event)
+                self.plugin_manager.on_event(event)
             
             self.scene_manager.update()
             self.plugin_manager.on_update(dt)

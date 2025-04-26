@@ -77,7 +77,8 @@ def create_plugin_manager_ui(
         height=40,
         text="Back to Menu",
         callback=lambda: switch_scene_callback("menu"),
-        event_manager=event_manager
+        event_manager=event_manager,
+        sound_key="exit_click"
     )
     ui.add(back_button)
 

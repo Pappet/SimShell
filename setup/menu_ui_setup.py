@@ -47,7 +47,8 @@ def create_main_menu_ui(
         width=200, height=50,
         text="Spiel starten",
         callback=lambda: switch_scene_callback("game"),
-        event_manager=event_manager
+        event_manager=event_manager,
+        sound_key="start_click"
     )
 
     theme_button = Button(
@@ -79,7 +80,8 @@ def create_main_menu_ui(
         width=200, height=50,
         text="Beenden",
         callback=exit_callback,
-        event_manager=event_manager
+        event_manager=event_manager,
+        sound_key="exit_click"
     )
 
     # Add all elements to the layout
