@@ -28,6 +28,8 @@ class Button(UIElement):
             height (int): Height of the button.
             text (str): Label text.
             callback (callable): Function to call on click.
+            event_manager (EventManager): Event manager for dispatching events.
+            sound_key (str): Key for sound effect.
         """
         super().__init__(x, y, width, height)
         self.text = text

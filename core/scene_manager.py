@@ -1,11 +1,6 @@
-# core/scene_manager.py
-
-"""
-SceneManager class to manage different scenes in the game.
-It handles switching, instantiation, caching, updating, and drawing.
-"""
-
 import logging
+import inspect
+import scenes
 from core.scene_registry import scene_registry
 
 logger = logging.getLogger(__name__)
@@ -14,11 +9,7 @@ class SceneManager:
     """
     Manager for game scenes: handles instantiation, caching, and transitions.
     """
-    def __init__(
-        self,
-        context,
-        app
-    ):
+    def __init__(self, context, app):
         """
         Initialize the SceneManager.
 
@@ -32,40 +23,35 @@ class SceneManager:
         self.scene_cache = {}
         logger.debug("SceneManager initialized.")
 
-    def switch_scene(
-        self,
-        key: str
-    ):
+    def switch_scene(self, key: str):
         """
         Switch to the scene identified by key. Caches scenes on first use.
 
         Args:
             key (str): Scene registry key.
         """
-        if key not in self.scene_cache:
-            if key == "menu":
-                from scenes.main_menu_scene import MainMenuScene
-                scene = MainMenuScene(
-                    context=self.context,
-                    switch_scene_callback=self.switch_scene,
-                    exit_callback=self.app.exit_game
-                )
-            else:
-                SceneClass = scene_registry.get(key)
-                if not SceneClass:
-                    logger.warning(f"Scene '{key}' not found in registry.")
-                    return
-                scene = SceneClass(
-                    context=self.context,
-                    switch_scene_callback=self.switch_scene
-                )
+        scene = self.scene_cache.get(key)
+        if scene is None:
+            SceneFactory = scene_registry.get(key)
+            if not SceneFactory:
+                logger.warning(f"Scene '{key}' not found in registry.")
+                return
+            # Prepare constructor arguments
+            sig = inspect.signature(SceneFactory.__init__)
+            params = sig.parameters
+            kwargs = {
+                'context': self.context,
+                'switch_scene_callback': self.switch_scene,
+            }
+            # If the scene requires an exit callback, inject it
+            if 'exit_callback' in params:
+                kwargs['exit_callback'] = self.app.exit_game
+            # Instantiate and cache
+            scene = SceneFactory(**kwargs)
             self.scene_cache[key] = scene
-        self._activate(self.scene_cache[key])
+        self._activate(scene)
 
-    def _activate(
-        self,
-        scene
-    ):
+    def _activate(self, scene):
         """
         Activate the given scene as current.
 
@@ -75,10 +61,7 @@ class SceneManager:
         self.current_scene = scene
         logger.debug(f"Switched to scene: {scene}")
 
-    def handle_event(
-        self,
-        event
-    ):
+    def handle_event(self, event):
         """
         Forward input events to the current scene.
 
@@ -88,19 +71,14 @@ class SceneManager:
         if self.current_scene:
             self.current_scene.handle_event(event)
 
-    def update(
-        self
-    ):
+    def update(self):
         """
         Update the current scene.
         """
         if self.current_scene:
             self.current_scene.update()
 
-    def draw(
-        self,
-        surface
-    ):
+    def draw(self, surface):
         """
         Draw the current scene onto the given surface.
 

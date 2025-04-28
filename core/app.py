@@ -11,6 +11,9 @@ It is the entry point for the game application.
 import sys
 import logging
 import pygame
+import os
+from core.debug_console import DebugConsole
+from core.debug_console_handler import DebugConsoleHandler
 from core.events.event_types import EventType
 import setup.config as Config
 from core.plugin_manager import PluginManager
@@ -28,7 +31,7 @@ class GameApp:
         self.screen = pygame.display.set_mode((Config.screen["width"], Config.screen["height"]))
         pygame.display.set_caption(Config.screen["title"])
         self.clock = pygame.time.Clock()
-
+   
         self.config = Config
         self.debug_console = debug_console
         self.plugin_manager = PluginManager(app=self)
@@ -42,6 +45,11 @@ class GameApp:
                     EventType.UI_BUTTON_CLICKED,
                     self.plugin_manager.on_event
         )
+
+        if debug_console is None:
+            font = pygame.font.SysFont(Config.fonts["debug"]["name"], Config.fonts["debug"]["size"])
+            self.debug_console = DebugConsole(font, max_lines=Config.ui["debug_console"]["max_lines"])
+            logging.getLogger().addHandler(DebugConsoleHandler(self.debug_console))
 
         self.scene_manager.switch_scene(Config.scenes["initial"])
 
@@ -71,9 +79,7 @@ class GameApp:
             
             pygame.display.flip()
             
-
-        self.exit_game()
-
+            
     def exit_game(self):
         # exit the loop and close the game
         self.running = False

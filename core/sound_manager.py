@@ -15,9 +15,9 @@ class SoundManager:
     def load(self, key: str, filepath: str):
         try:
             self.sounds[key] = pygame.mixer.Sound(filepath)
-            logging.info(f"Loaded sound: {key} from {filepath}")
+            logger.info(f"Loaded sound: {key} from {filepath}")
         except Exception as e:
-            logging.error(f"Failed to load sound '{key}': {e}")
+            logger.error(f"Failed to load sound '{key}': {e}")
 
 
     def play(self, key: str):

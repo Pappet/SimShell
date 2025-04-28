@@ -7,6 +7,7 @@ paths:
   stats_config: setup/stats_config.json
   log_file: simshell.log
   plugins_path: plugins
+  sounds_dir: assets/sounds
 logging:
   level: DEBUG
   file_level: DEBUG
@@ -45,3 +46,9 @@ scenes:
   - menu
   - game
   - plugin_manager
+sounds:
+  start_click: select_008.wav
+  exit_click: exit.wav
+  default_click: click_001.wav
+  add_click: maximize_009.wav
+  sup_click: minimize_009.wav
