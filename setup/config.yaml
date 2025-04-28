@@ -1,54 +1,71 @@
+# Configuration file for the SimShell Framework
+# Defines core settings for display, paths, logging, UI, themes, scenes, and sounds.
+
 screen:
-  width: 800
-  height: 600
-  fps: 60
-  title: SimShell Framework
+  # Window dimensions and framerate
+  width: 800       # Width of the game window in pixels
+  height: 600      # Height of the game window in pixels
+  fps: 60          # Target frames per second for the main loop
+  title: SimShell Framework  # Title displayed on the game window
+
 paths:
-  stats_config: setup/stats_config.json
-  log_file: simshell.log
-  plugins_path: plugins
-  sounds_dir: assets/sounds
+  # File system locations for various resources
+  stats_config: setup/stats_config.json   # JSON file defining stat parameters
+  log_file: simshell.log                  # Path to write application logs
+  plugins_path: plugins                   # Directory containing plugin subfolders
+  sounds_dir: assets/sounds               # Directory containing sound asset files
+
 logging:
-  level: DEBUG
-  file_level: DEBUG
-  console_level: INFO
-  max_bytes: 1000000
-  backup_count: 3
-  date_format: '%H:%M:%S'
-  file_log_format: '%(asctime)s %(levelname)-5s [%(name)s] %(message)s'
-  console_log_format: '%(levelname)-5s | %(message)s'
+  # Logging verbosity and formatting
+  level: DEBUG               # Global logging level
+  file_level: DEBUG          # File handler log level
+  console_level: INFO        # Console handler log level
+  max_bytes: 1000000         # Maximum size (in bytes) before rotating log file
+  backup_count: 3            # Number of rotated log files to keep
+  date_format: '%H:%M:%S'    # Timestamp format for log entries
+  file_log_format: '%(asctime)s %(levelname)-5s [%(name)s] %(message)s'  # Format for file logs
+  console_log_format: '%(levelname)-5s | %(message)s'                  # Format for console logs
+
 fonts:
+  # Font settings for various UI elements
   default:
     name: Arial
-    size: 18
+    size: 18    # Standard text size
   debug:
     name: Consolas
-    size: 12
+    size: 12    # Font used by in-game debug console
   title:
     name: Arial Black
-    size: 24
+    size: 24    # Font for titles and headers
+
 ui:
+  # UI layout parameters
   default:
-    border_width: 2
-    padding: 5
-    spacing: 10
+    border_width: 2  # Border thickness for UI elements
+    padding: 5       # Internal padding (pixels)
+    spacing: 10      # Spacing between UI components
   debug_console:
-    max_lines: 10
-    padding: 5
-    pos:
-    - 10
-    - 10
+    max_lines: 10    # Maximum lines shown in debug console
+    padding: 5       # Padding inside debug console background
+    pos:              # Default position of debug console [x, y]
+      - 10
+      - 10
+
 theme:
-  default: dark
+  default: dark  # Default UI theme
+
 scenes:
-  initial: menu
-  available:
-  - menu
-  - game
-  - plugin_manager
+  # Scene management configuration
+  initial: menu               # Key of the initial scene to load on startup
+  available:                  # List of all registered scene keys
+    - menu
+    - game
+    - plugin_manager
+
 sounds:
-  start_click: select_008.wav
-  exit_click: exit.wav
-  default_click: click_001.wav
-  add_click: maximize_009.wav
-  sup_click: minimize_009.wav
+  # Mapping of sound identifiers to filenames in sounds_dir
+  start_click: select_008.wav    # Sound for starting actions
+  exit_click: exit.wav            # Sound played on exit
+  default_click: click_001.wav    # Generic click sound
+  add_click: maximize_009.wav     # Sound for adding/increment actions
+  sup_click: minimize_009.wav     # Sound for subtracting/decrement actions

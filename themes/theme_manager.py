@@ -1,83 +1,101 @@
-# themes/theme_manager.py
-
 """
-Theme manager for loading and switching UI color themes.
+Module themes/theme_manager.py
+
+Manages UI color themes: loading, switching, and retrieving theme colors.
+Defines functions to set and query the active theme, as well as utility
+for generating random colors.
 """
 
 import random
 from typing import Dict, Tuple, Any
+
 from themes import dark_theme, light_theme, retro_theme
 import setup.config as Config
 
-# Mapping of theme names to their color dictionaries
+logger = __import__('logging').getLogger(__name__)
+
+# Pre-defined theme mappings loaded from respective modules
 THEMES: Dict[str, Dict[str, Tuple[int, ...]]] = {
     "dark": dark_theme.theme,
     "light": light_theme.theme,
     "retro": retro_theme.theme,
 }
 
-# Active theme is set based on Config.theme['default']
+# Initialize active theme based on configuration default, fallback to dark
+_current_theme_name: str = Config.theme.get("default", "dark")
 _current_theme: Dict[str, Tuple[int, ...]] = THEMES.get(
-    Config.theme.get("default", "dark"),
+    _current_theme_name,
     dark_theme.theme
 )
-_current_theme_name: str = Config.theme.get("default", "dark")
 
 
 def set_theme(name: str) -> None:
     """
-    Set the active UI theme by name.
+    Switch the current UI theme to the specified theme name.
 
     Args:
-        name (str): One of the keys in THEMES (e.g. "dark", "light", "retro").
+        name (str): Key of the theme to activate ("dark", "light", or "retro").
+
+    If the provided name is not found, the current theme remains unchanged.
     """
     global _current_theme, _current_theme_name
     if name in THEMES:
         _current_theme = THEMES[name]
         _current_theme_name = name
+        logger.info("Theme switched to '%s'.", name)
     else:
-        # If theme name is invalid, keep current theme
-        pass
+        logger.warning(
+            "Attempted to set unknown theme '%s'. Keeping '%s'.",
+            name, _current_theme_name
+        )
 
 
 def get_color(key: str) -> Tuple[int, ...]:
     """
-    Retrieve a color tuple from the current theme.
+    Retrieve a color value for a given semantic key from the active theme.
 
     Args:
-        key (str): Semantic color key defined in the theme.
+        key (str): Color semantic identifier defined in the theme dictionaries.
 
     Returns:
-        Tuple[int, ...]: RGB or RGBA color. Returns magenta (255,0,255) if key is missing.
+        Tuple[int, ...]: RGB or RGBA color tuple. Returns magenta (255,0,255)
+        if the key is not present in the active theme.
     """
-    return _current_theme.get(key, (255, 0, 255))
+    return _current_theme.get(key, (255, 0, 255))  # Magenta signals missing key
 
 
 def get_theme() -> Dict[str, Tuple[int, ...]]:
     """
-    Return the entire active theme dictionary.
+    Get the full active theme dictionary mapping keys to color tuples.
 
     Returns:
-        Dict[str, Tuple[int, ...]]: Mapping of color keys to color tuples.
+        Dict[str, Tuple[int, ...]]: Active theme color mapping.
     """
     return _current_theme
 
 
 def get_theme_name() -> str:
     """
-    Get the name of the currently active theme.
+    Retrieve the name of the currently active theme.
 
     Returns:
-        str: Current theme name (e.g. "dark").
+        str: Active theme name.
     """
     return _current_theme_name
 
 
 def random_color() -> Tuple[int, int, int]:
     """
-    Generate a random RGB color tuple.
+    Generate and return a random RGB color.
+
+    Useful for debugging or visual placeholders when specific theme colors are
+    not required.
 
     Returns:
-        Tuple[int, int, int]: Random color.
+        Tuple[int, int, int]: A tuple of three integers in [0,255].
     """
-    return (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+    return (
+        random.randint(0, 255),  # Red component
+        random.randint(0, 255),  # Green component
+        random.randint(0, 255),  # Blue component
+    )

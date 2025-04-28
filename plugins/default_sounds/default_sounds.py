@@ -21,6 +21,9 @@ class PluginImpl(Plugin):
             except Exception as e:
                 logger.error(f"Fehler beim Laden von Sound '{key}': {e}")
 
+    def on_start(self):
+        pass
+
     def on_event(self, event):
         if isinstance(event, Button):
             sound_key = getattr(event, "sound_key", None) or "default_click"
@@ -28,3 +31,12 @@ class PluginImpl(Plugin):
                 self.app.context.sound_manager.play(sound_key)
             except Exception as e:
                 logger.error(f"Error playing sound '{sound_key}': {e}")
+
+    def on_update(self, dt):
+        pass
+
+    def on_render(self, surface):
+        pass
+
+    def on_shutdown(self):
+        pass

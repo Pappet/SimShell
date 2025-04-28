@@ -10,11 +10,19 @@ class PluginImpl(Plugin):
     def on_init(self):
         self.font = pygame.font.SysFont("Arial", 14)
 
+    def on_start(self):
+        return super().on_start()
+
     def on_render(self, surface):
         current_time = time.strftime("%H:%M:%S", time.localtime())
         text = self.font.render(f"Uhrzeit: {current_time}", True, (0, 255, 0))
         surface.blit(text, (400, 10))
 
+    def on_event(self, event):
+        return super().on_event(event)
+
+    def on_update(self, dt):
+        return super().on_event(dt)
+
     def on_shutdown(self):
-        pass
-        
+        return super().on_event()
