@@ -22,7 +22,7 @@ class PluginImpl(Plugin):
         return super().on_event(event)
 
     def on_update(self, dt):
-        return super().on_event(dt)
+        return super().on_update(dt)
 
     def on_shutdown(self):
-        return super().on_event()
+        return super().on_shutdown()

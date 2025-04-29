@@ -80,7 +80,7 @@ if __name__ == '__main__':
 
     # Configure logging to file and debug console
     setup_logging(debug_console)
-
+    
     # Launch the main game application with debug console enabled
     app = GameApp(debug_console=debug_console)
     app.run()

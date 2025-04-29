@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 class PluginImpl(Plugin):
     def on_init(self):
+        print("INIT")
         sounds_dir = paths.get('sounds_dir', os.path.join('assets', 'sounds'))
 
         for key, filename in sounds.items():
@@ -33,10 +34,10 @@ class PluginImpl(Plugin):
                 logger.error(f"Error playing sound '{sound_key}': {e}")
 
     def on_update(self, dt):
-        pass
+        return super().on_update(dt)  
 
     def on_render(self, surface):
-        pass
+        return super().on_render(surface)
 
     def on_shutdown(self):
-        pass
+        return super().on_shutdown()

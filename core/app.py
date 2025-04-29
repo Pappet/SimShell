@@ -45,6 +45,8 @@ class GameApp:
         self.running = True     # Main loop flag
         self.debug = False      # Toggle for debug console display
 
+        logger.debug("...Starting game...")
+
         # Initialize Pygame display and timing
         self.screen = pygame.display.set_mode(
             (Config.screen["width"], Config.screen["height"]))
@@ -64,7 +66,7 @@ class GameApp:
 
         # Discover and initialize plugins
         self.plugin_manager.load_plugins()
-        self.plugin_manager.on_init()
+        #self.plugin_manager.on_init()
 
         # Register UI button click events to plugin handler
         self.context.event_manager.register(
@@ -149,7 +151,8 @@ class GameApp:
 
         # Notify plugins to perform shutdown operations
         self.plugin_manager.on_shutdown()
-        logger.debug("Exiting game...")
+        logger.debug("...Exiting game...")
+        logger.debug("------------------------------------------------------------------------------")
 
         # Clean up Pygame and exit process
         pygame.quit()
