@@ -21,7 +21,7 @@ theme = {
 
     "checkbox_box": (200, 200, 200),
     "checkbox_check": (50, 150, 50),
-    "label_text": (0, 0, 0),
+    "label_text": (255, 255, 0),
 
     # Status indicators
     "success": (0, 255, 0),           # Green - success

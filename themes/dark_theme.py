@@ -16,7 +16,7 @@ theme = {
 
     "checkbox_box": (200, 200, 200),
     "checkbox_check": (50, 150, 50),
-    "label_text": (0, 0, 0),
+    "label_text": (255, 255, 255),
 
     "success": (0, 200, 100),           # Green - success
     "warning": (255, 204, 0),           # Yellow - caution

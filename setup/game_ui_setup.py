@@ -11,6 +11,7 @@ from core.events.event_types import EventType
 from ui.components.button import Button
 from ui.components.label import Label
 from ui.components.panel import Panel
+from ui.components.checkbox import UICheckbox
 from ui.components.progressbar import ProgressBar
 from ui.ui_manager import UIManager
 from ui.layout.horizontal import HorizontalLayout
@@ -150,8 +151,22 @@ def create_game_ui(
         sound_key="exit_click"
     )
 
+    def on_toggle(state):
+        print(f"Checkbox is now: {state}")
+
+    checkbox = UICheckbox(
+        x=50,
+        y=300,
+        label="Enable Music",
+        checked=True,
+        callback=on_toggle
+    )
+
+    
+
     # Main vertical layout for the scene
     main_layout = VerticalLayout(x=200, y=200, spacing=20, align="center")
+    main_layout.add(checkbox)
     main_layout.add(title_label)
     main_layout.add(energy_panel)
     main_layout.add(health_panel)
