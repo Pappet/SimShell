@@ -63,7 +63,7 @@ def create_main_menu_ui(
         x=0, y=0,
         width=200, height=50,
         text="Retro Thema wechseln",
-        callback=lambda: Callbacks.toggle_retro(),
+        callback=lambda: Callbacks.set_retro(),
         event_manager=event_manager
     )
 

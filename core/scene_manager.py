@@ -8,6 +8,8 @@ instantiation, caching, and transitions between game scenes.
 import logging
 import inspect
 import scenes
+import pkgutil, importlib
+for _, modname, _ in pkgutil.iter_modules(scenes.__path__): importlib.import_module(f"scenes.{modname}") 
 
 from core.scene_registry import scene_registry
 

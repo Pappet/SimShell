@@ -43,7 +43,7 @@ def toggle_theme() -> None:
     set_theme(new)
 
 
-def toggle_retro() -> None:
+def set_retro() -> None:
     """
     Set the UI theme to 'retro' style.
 
