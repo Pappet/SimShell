@@ -14,6 +14,10 @@ theme = {
     "button_active": (190, 190, 190),      # Button active color (darker gray)
     "button_text": (0, 0, 0),              # Button text color (black)
 
+    "checkbox_box": (200, 200, 200),
+    "checkbox_check": (50, 150, 50),
+    "label_text": (0, 0, 0),
+
     "success": (0, 200, 100),              # Green - success
     "warning": (255, 204, 0),              # Yellow - caution
     "error": (200, 50, 50),                # Red - error or danger

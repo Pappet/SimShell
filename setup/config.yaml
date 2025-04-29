@@ -50,6 +50,8 @@ ui:
     pos:              # Default position of debug console [x, y]
       - 10
       - 10
+  checkbox: 
+    size: 20
 
 theme:
   default: dark  # Default UI theme
