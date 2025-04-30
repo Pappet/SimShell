@@ -52,3 +52,10 @@ def set_retro() -> None:
     current = get_theme_name()
     logger.info("Toggling theme from %s to 'retro'.", current)
     set_theme("retro")
+
+
+def on_toggle(state):
+    print(f"Checkbox is now: {state}")
+
+def update_label_text(label, text):
+    label.set_text(text)

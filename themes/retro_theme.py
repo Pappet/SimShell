@@ -19,9 +19,16 @@ theme = {
     "button_active": (160, 160, 160),   # Light gray active state
     "button_text": (255, 255, 0),       # Yellow text for buttons
 
+    #Checkbox
     "checkbox_box": (200, 200, 200),
     "checkbox_check": (50, 150, 50),
     "label_text": (255, 255, 0),
+
+    #Input Box
+    "input_bg": (255, 255, 255),
+    "input_text": (0, 0, 0),
+    "input_placeholder": (150, 150, 150),
+    "input_cursor": (0, 0, 0),
 
     # Status indicators
     "success": (0, 255, 0),           # Green - success

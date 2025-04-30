@@ -80,7 +80,7 @@ class UICheckbox(UIElement):
         # Draw label text if present
         if self.label:
             text_surf = self.font.render(self.label, True, text_color)
-            text_rect = text_surf.get_rect(midright=(self.rect.left - 10, self.rect.centery))
+            text_rect = text_surf.get_rect(midleft=(self.rect.right + 10, self.rect.centery))
             surface.blit(text_surf, text_rect)
 
     def handle_event(self, event: pygame.event.Event) -> None:

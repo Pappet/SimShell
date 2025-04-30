@@ -11,12 +11,12 @@ from core.events.event_types import EventType
 from ui.components.button import UIButton
 from ui.components.label import UILabel
 from ui.components.panel import UIPanel
-from ui.components.image import UIImage
 from ui.components.checkbox import UICheckbox
 from ui.components.progressbar import UIProgressBar
 from ui.ui_manager import UIManager
 from ui.layout.horizontal import HorizontalLayout
 from ui.layout.vertical import VerticalLayout
+from ui.components.text_input import UITextInput
 
 
 def create_game_ui(
@@ -152,26 +152,47 @@ def create_game_ui(
         sound_key="exit_click"
     )
 
-    def on_toggle(state):
-        print(f"Checkbox is now: {state}")
+    text_label = UILabel("test", 0,0,)
+
 
     checkbox = UICheckbox(
         x=50,
         y=300,
         label="Enable Music",
         checked=True,
-        callback=on_toggle
+        callback=Callbacks.on_toggle
     )
 
-    # Main vertical layout for the scene
-    main_layout = VerticalLayout(x=200, y=200, spacing=20, align="center")
-    main_layout.add(checkbox)
-    main_layout.add(title_label)
-    main_layout.add(energy_panel)
-    main_layout.add(health_panel)
-    main_layout.add(back_button)
+    input_box = UITextInput(
+        x=50, y=400,
+        width=300, height=30,
+        placeholder="Name eingeben...",
+        on_enter=lambda new_text: Callbacks.update_label_text(text_label, new_text)
+    )
 
-    for element in main_layout.get_elements():
+    veri = VerticalLayout(50, 100, 20, "center")
+
+    hori = HorizontalLayout(x=0, y=0, spacing=20, align="center")
+    
+    
+    # Main vertical layout for the scene
+    main_layout = VerticalLayout(x=0, y=0, spacing=20, align="left")    
+    main_layout.add(input_box)
+    main_layout.add(text_label)
+    main_layout.add(checkbox)   
+
+    second_layout = VerticalLayout(x=0, y=0, spacing=20, align="right")
+    second_layout.add(energy_panel)
+    second_layout.add(health_panel)
+
+    hori.add(main_layout)
+    hori.add(second_layout)
+
+    veri.add(title_label)
+    veri.add(hori)
+    veri.add(back_button)
+
+    for element in veri.get_elements():
         ui.add(element)
 
     # Register event handlers for dynamic stat updates

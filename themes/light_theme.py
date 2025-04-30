@@ -18,6 +18,12 @@ theme = {
     "checkbox_check": (50, 150, 50),
     "label_text": (0, 0, 0),
 
+    #Input Box
+    "input_bg": (255, 255, 255),
+    "input_text": (0, 0, 0),
+    "input_placeholder": (150, 150, 150),
+    "input_cursor": (0, 0, 0),
+
     "success": (0, 200, 100),              # Green - success
     "warning": (255, 204, 0),              # Yellow - caution
     "error": (200, 50, 50),                # Red - error or danger
