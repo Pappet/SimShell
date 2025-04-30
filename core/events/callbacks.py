@@ -7,7 +7,7 @@ and adjust UI in response to user actions or system events.
 """
 
 import logging
-from themes.theme_manager import set_theme, get_theme_name
+from themes.theme_manager import set_theme, get_theme_name, THEMES
 
 logger = logging.getLogger(__name__)
 
@@ -32,13 +32,24 @@ def modify_stat(stat_manager, stat_name: str, amount: float) -> None:
 
 def toggle_theme() -> None:
     """
-    Toggle the application UI theme between 'light' and 'dark'.
+    Toggle the application UI theme durch alle verfügbaren Themes in THEMES.
 
-    If current theme is 'light' or 'retro', switches to 'dark'; otherwise
-    switches back to 'light'. Logs the theme transition.
+    Ermittelt den aktuellen Theme-Namen, findet dessen Index in der
+    THEMES-Liste und wechselt zum nächsten Eintrag (zyklisch).
+    Logs die Theme-Transition.
     """
+    # Liste aller Theme-Namen in der Reihenfolge der dict-Definition
+    theme_names = list(THEMES.keys())
     current = get_theme_name()
-    new = "dark" if current in ("light", "retro") else "light"
+    try:
+        idx = theme_names.index(current)
+    except ValueError:
+        # Falls current nicht in THEMES ist, zurück auf erstes Theme
+        idx = 0
+        logger.warning("Unbekanntes Theme '%s', wechsle auf '%s'.", current, theme_names[idx])
+
+    # Nächstes Theme, zyklisch
+    new = theme_names[(idx + 1) % len(theme_names)]
     logger.info("Toggling theme from %s to %s.", current, new)
     set_theme(new)
 

@@ -9,7 +9,7 @@ for generating random colors.
 import random
 from typing import Dict, Tuple, Any
 
-from themes import dark_theme, light_theme, retro_theme
+from themes import dark_theme, light_theme, retro_theme, dracula_theme
 import setup.config as Config
 
 logger = __import__('logging').getLogger(__name__)
@@ -19,6 +19,7 @@ THEMES: Dict[str, Dict[str, Tuple[int, ...]]] = {
     "dark": dark_theme.theme,
     "light": light_theme.theme,
     "retro": retro_theme.theme,
+    "dracula": dracula_theme.theme
 }
 
 # Initialize active theme based on configuration default, fallback to dark
