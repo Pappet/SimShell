@@ -1,26 +1,28 @@
-# ui/components/checkbox.py
-
 """
-Defines UICheckbox UIElement for toggling boolean values via mouse clicks.
-Optionally calls a callback when toggled.
+Module ui/components/checkbox.py
+
+Defines the UICheckbox UI element for toggling boolean options via mouse clicks or keyboard activation.
+Supports optional text labels and callback invocation on state change.
 """
 
-import pygame
 import logging
+import pygame
 from ui.components.base import UIElement
 from themes.theme_manager import get_color
 import setup.config as Config
 
 logger = logging.getLogger(__name__)
 
+
 class UICheckbox(UIElement):
     """
-    UI element for a clickable checkbox with optional label and callback.
+    Clickable checkbox component with optional label and toggle callback.
 
     Attributes:
-        checked (bool): Whether the checkbox is checked.
-        callback (callable): Optional function called when toggled.
-        label (str): Optional text label displayed next to the checkbox.
+        checked (bool): Current check state (True if checked).
+        label (str): Text displayed next to the checkbox.
+        callback (Optional[Callable[[bool], None]]): Function called with new state on toggle.
+        focusable (bool): Indicates this element can receive keyboard focus.
     """
     def __init__(
         self,
@@ -31,77 +33,113 @@ class UICheckbox(UIElement):
         callback: callable = None
     ) -> None:
         """
-        Initialize a UICheckbox element.
+        Initialize a UICheckbox instance.
 
         Args:
-            x (int): X coordinate.
-            y (int): Y coordinate.
-            label (str, optional): Text label to show next to checkbox.
-            checked (bool, optional): Initial checked state.
-            callback (callable, optional): Function to call when toggled.
+            x (int): X-coordinate of the checkbox's top-left corner.
+            y (int): Y-coordinate of the checkbox's top-left corner.
+            label (str, optional): Text label to display to the right of the box.
+            checked (bool, optional): Initial checked state. Defaults to False.
+            callback (callable, optional): Function to call when toggled. Receives new state.
         """
-        size = Config.ui["checkbox"]["size"]  # e.g. 20px
+        # Determine size from configuration (e.g., a square size)
+        size = Config.ui["checkbox"]["size"]
         super().__init__(x, y, size, size)
+
         self.checked = checked
         self.callback = callback
         self.label = label
+        # Enable keyboard focus navigation for this element
+        self.focusable = True
 
+        # Prepare font for optional label text
         font_cfg = Config.fonts["default"]
-        self.font = pygame.font.SysFont(
-            font_cfg["name"], font_cfg["size"]
-        )
+        self.font = pygame.font.SysFont(font_cfg["name"], font_cfg["size"])
 
-        logger.debug(f"UICheckbox initialized at ({x},{y}) with label '{label}' checked={checked}")
+        logger.debug(
+            "UICheckbox initialized at (%d,%d) size %d label '%s' checked=%s",
+            x, y, size, label, checked
+        )
 
     def draw(self, surface: pygame.Surface) -> None:
         """
-        Draw the checkbox and optional label.
+        Render the checkbox box, checkmark if checked, optional label, and focus glow.
 
         Args:
             surface (pygame.Surface): Surface to draw on.
         """
+        # Colors based on current theme
         box_color = get_color("checkbox_box")
         check_color = get_color("checkbox_check")
         border_color = get_color("border")
         text_color = get_color("label_text")
+        focus_glow = get_color("focus_glow")
 
-        # Draw checkbox box
+        # Draw the checkbox square
         pygame.draw.rect(surface, box_color, self.rect)
         pygame.draw.rect(
-            surface, border_color, self.rect, Config.ui["default"]["border_width"]
+            surface,
+            border_color,
+            self.rect,
+            Config.ui["default"]["border_width"]
         )
 
-        # Draw checkmark if checked
+        # Draw inner checkmark if in checked state
         if self.checked:
             padding = 4
-            inner_rect = self.rect.inflate(-padding, -padding)
+            inner_rect = self.rect.inflate(-padding * 2, -padding * 2)
             pygame.draw.rect(surface, check_color, inner_rect)
 
-        # Draw label text if present
+        # Draw label text to the right if provided
         if self.label:
             text_surf = self.font.render(self.label, True, text_color)
-            text_rect = text_surf.get_rect(midleft=(self.rect.right + 10, self.rect.centery))
-            surface.blit(text_surf, text_rect)
+            text_pos = (
+                self.rect.right + 8,
+                self.rect.y + (self.rect.height - text_surf.get_height()) // 2
+            )
+            surface.blit(text_surf, text_pos)
+
+        # Draw focus glow if element is focused
+        if self.focused:
+            glow_rect = self.rect.inflate(6, 6)
+            pygame.draw.rect(surface, focus_glow, glow_rect, 2)
 
     def handle_event(self, event: pygame.event.Event) -> None:
         """
-        Toggle checkbox state on mouse click.
+        Handle mouse clicks to toggle state, and keyboard activation via UIManager.
 
         Args:
-            event (pygame.event.Event): Event to handle.
+            event (pygame.event.Event): The event to process.
         """
+        # Toggle on left mouse button click within checkbox bounds
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if self.rect.collidepoint(event.pos):
-                self.checked = not self.checked
-                logger.debug(f"UICheckbox '{self.label}' toggled to {self.checked}")
-                if self.callback:
-                    try:
-                        self.callback(self.checked)
-                    except Exception:
-                        logger.exception(f"Error in checkbox callback for '{self.label}'")
+                self._toggle_state()
 
     def update(self, mouse_pos: tuple[int, int]) -> None:
         """
-        Nothing dynamic yet. Hover effects could be added here.
+        Currently no hover behavior. Placeholder for future enhancements.
+
+        Args:
+            mouse_pos (tuple[int, int]): Cursor coordinates.
         """
         pass
+
+    def activate(self) -> None:
+        """
+        Called by UIManager when ENTER/SPACE is pressed on this focused element.
+        Toggles the checkbox state.
+        """
+        self._toggle_state()
+
+    def _toggle_state(self) -> None:
+        """
+        Internal helper to invert the checked flag and invoke callback.
+        """
+        self.checked = not self.checked
+        logger.debug("UICheckbox '%s' toggled to %s", self.label, self.checked)
+        if self.callback:
+            try:
+                self.callback(self.checked)
+            except Exception:
+                logger.exception("Error in checkbox callback for '%s'", self.label)

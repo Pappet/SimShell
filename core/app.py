@@ -109,10 +109,8 @@ class GameApp:
 
             # Event handling
             for event in pygame.event.get():
-                # Quit on window close or Escape key
-                if event.type == pygame.QUIT or (
-                    event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE
-                ):
+                # Quit on window close
+                if event.type == pygame.QUIT:
                     self.exit_game()
 
                 # Toggle debug display on 'D' key

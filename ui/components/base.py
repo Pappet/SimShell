@@ -2,7 +2,7 @@
 Module ui/components/base.py
 
 Defines the UIElement base class for all UI components.
-Provides position, size, hit detection, and lifecycle hooks (draw, handle_event, update).
+Provides position, size, hit detection, keyboard focus handling, and lifecycle hooks.
 """
 
 import pygame
@@ -19,6 +19,8 @@ class UIElement:
         width (int): Width of the element.
         height (int): Height of the element.
         rect (pygame.Rect): Rectangle used for hit detection and layout.
+        focusable (bool): Whether the element can receive keyboard focus.
+        focused (bool): Current keyboard focus state.
     """
     def __init__(self, x: int, y: int, width: int = 0, height: int = 0) -> None:
         """
@@ -34,8 +36,26 @@ class UIElement:
         self.y = y
         self.width = width
         self.height = height
+        self.focusable = False
+        self.focused = False
         # Rect for click and mouse-over detection
         self.rect = pygame.Rect(x, y, width, height)
+
+    def set_focus(self, focused: bool) -> None:
+        """
+        Set or clear keyboard focus on this element.
+
+        Args:
+            focused (bool): True to give focus, False to remove.
+        """
+        self.focused = focused
+
+    def activate(self) -> None:
+        """
+        Called when an activation key (ENTER/SPACE) is pressed while focused.
+        Subclasses should override to perform actions (e.g., button click).
+        """
+        pass
 
     def draw(self, surface: pygame.Surface) -> None:
         """
@@ -50,20 +70,18 @@ class UIElement:
 
     def handle_event(self, event: pygame.event.Event) -> None:
         """
-        Called for each input event.
+        Handle an input event (mouse or keyboard).
 
-        Subclasses with click or input logic should override this method.
+        Subclasses with click or input logic should override this.
 
         Args:
-            event (pygame.event.Event): The event to handle.
+            event (pygame.event.Event): The event to process.
         """
         pass
 
     def update(self, mouse_pos: Tuple[int, int]) -> None:
         """
-        Called once per frame with current mouse position.
-
-        Use for hover effects or dynamic layout.
+        Update element state each frame (e.g., hover visuals).
 
         Args:
             mouse_pos (tuple[int, int]): Current mouse coordinates.
@@ -72,9 +90,7 @@ class UIElement:
 
     def set_position(self, x: int, y: int) -> None:
         """
-        Dynamically adjust the element's position.
-
-        Updates both coordinates and the internal rect.
+        Move the element to a new position.
 
         Args:
             x (int): New X-coordinate.

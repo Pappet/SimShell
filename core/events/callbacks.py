@@ -58,4 +58,5 @@ def on_toggle(state):
     print(f"Checkbox is now: {state}")
 
 def update_label_text(label, text):
+    logger.info("Set Text: %s of Label: %s ", text, label)
     label.set_text(text)
