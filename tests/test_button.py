@@ -2,13 +2,13 @@
 
 import pytest
 import pygame
-from ui.components.button import Button
+from ui.components.button import UIButton
 
 pygame.init()
 
 def test_button_hover_and_click(tmp_path):
     # Erstelle Button und simuliere Mausbewegung / Klick
-    btn = Button((0, 0, 50, 20), "OK", lambda: setattr(btn, "clicked", True))
+    btn = UIButton((0, 0, 50, 20), "OK", lambda: setattr(btn, "clicked", True))
     # Simuliere Hover
     btn.update((10, 10))
     assert btn.hovered is True

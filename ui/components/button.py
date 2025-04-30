@@ -17,7 +17,7 @@ from ui.components.base import UIElement
 logger = logging.getLogger(__name__)
 
 
-class Button(UIElement):
+class UIButton(UIElement):
     """
     Clickable button component with hover highlighting and callback invocation.
 

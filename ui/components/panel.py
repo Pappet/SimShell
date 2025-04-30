@@ -14,7 +14,7 @@ from themes.theme_manager import get_color
 from ui.components.base import UIElement
 
 
-class Panel(UIElement):
+class UIPanel(UIElement):
     """
     Container for grouping UI elements with background, border, and padding.
 

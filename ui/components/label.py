@@ -13,7 +13,7 @@ from themes.theme_manager import get_color
 from ui.components.base import UIElement
 
 
-class Label(UIElement):
+class UILabel(UIElement):
     """
     UI element for displaying text labels.
 

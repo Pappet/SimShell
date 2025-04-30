@@ -6,8 +6,8 @@ Module for constructing the main menu UI.
 
 import core.events.callbacks as Callbacks
 import setup.config as Config
-from ui.components.button import Button
-from ui.components.label import Label
+from ui.components.button import UIButton
+from ui.components.label import UILabel
 from ui.ui_manager import UIManager
 from ui.layout.vertical import VerticalLayout
 
@@ -33,7 +33,7 @@ def create_main_menu_ui(
     layout = VerticalLayout(x=300, y=100, spacing=10, align="center")
 
     # Title label
-    title_label = Label(
+    title_label = UILabel(
         "Hauptmenü",
         x=0,
         y=0,
@@ -42,7 +42,7 @@ def create_main_menu_ui(
     )
 
     # Menu buttons
-    start_button = Button(
+    start_button = UIButton(
         x=0, y=0,
         width=200, height=50,
         text="Spiel starten",
@@ -51,7 +51,7 @@ def create_main_menu_ui(
         sound_key="start_click"
     )
 
-    theme_button = Button(
+    theme_button = UIButton(
         x=0, y=0,
         width=200, height=50,
         text="Thema wechseln",
@@ -59,7 +59,7 @@ def create_main_menu_ui(
         event_manager=event_manager
     )
 
-    retro_button = Button(
+    retro_button = UIButton(
         x=0, y=0,
         width=200, height=50,
         text="Retro Thema wechseln",
@@ -67,7 +67,7 @@ def create_main_menu_ui(
         event_manager=event_manager
     )
 
-    plugins_button = Button(
+    plugins_button = UIButton(
         x=0, y=0,
         width=200, height=50,
         text="Plugins Manager",
@@ -75,7 +75,7 @@ def create_main_menu_ui(
         event_manager=event_manager
     )
 
-    exit_button = Button(
+    exit_button = UIButton(
         x=0, y=0,
         width=200, height=50,
         text="Beenden",

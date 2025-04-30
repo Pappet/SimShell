@@ -11,7 +11,7 @@ from ui.components.base import UIElement
 
 logger = logging.getLogger(__name__)
 
-class Image(UIElement):
+class UIImage(UIElement):
     """
     UI Element for displaying an image.
 

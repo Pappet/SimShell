@@ -11,10 +11,10 @@ from typing import Any, List, Tuple
 import setup.config as Config
 from themes.theme_manager import get_color
 from ui.components.base import UIElement
-from ui.components.label import Label
+from ui.components.label import UILabel
 
 
-class Table(UIElement):
+class UITable(UIElement):
     """
     UI element that renders data in a grid layout.
 
@@ -64,7 +64,7 @@ class Table(UIElement):
         self.font_size = font_size or Config.fonts['default']['size']
 
         # Create header label objects if headers provided
-        self.header_labels: List[Label] = []
+        self.header_labels: List[UILabel] = []
         if self.headers:
             self._create_header_labels()
 
@@ -76,7 +76,7 @@ class Table(UIElement):
         dx = self.x
         for idx, text in enumerate(self.headers):
             # Create a label with padding inside the header cell
-            lbl = Label(
+            lbl = UILabel(
                 text=text,
                 x=dx + 5,
                 y=self.y + 5,
@@ -148,7 +148,7 @@ class Table(UIElement):
                     cell.draw(surface)
                 else:
                     # Render primitive value as a Label
-                    text_lbl = Label(
+                    text_lbl = UILabel(
                         text=str(cell),
                         x=dx + 5,
                         y=y_off + 5,

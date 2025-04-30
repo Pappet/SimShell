@@ -13,7 +13,7 @@ from themes.theme_manager import get_color
 from ui.components.base import UIElement
 
 
-class ProgressBar(UIElement):
+class UIProgressBar(UIElement):
     """
     UI element that displays a horizontal progress bar indicating a value proportion.
 

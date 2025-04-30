@@ -6,8 +6,8 @@ Table spans the full window width minus padding.
 """
 
 import setup.config as Config
-from ui.components.table import Table
-from ui.components.button import Button
+from ui.components.table import UITable
+from ui.components.button import UIButton
 from ui.ui_manager import UIManager
 
 
@@ -43,7 +43,7 @@ def create_plugin_manager_ui(
     column_widths = [name_w, status_w, action_w]
 
     # Instantiate the Table
-    table = Table(
+    table = UITable(
         x=padding,
         y=80,
         column_widths=column_widths,
@@ -56,7 +56,7 @@ def create_plugin_manager_ui(
     # Populate table rows with data and inline toggle Button
     for meta in plugin_manager.available:
         status = "On" if meta['enabled'] else "Off"
-        toggle_btn = Button(
+        toggle_btn = UIButton(
             x=0, y=0,
             width=column_widths[2] - 10,
             height=table.row_height - 10,
@@ -70,7 +70,7 @@ def create_plugin_manager_ui(
 
     # Back button below the table
     back_y = table.y + table.height + padding
-    back_button = Button(
+    back_button = UIButton(
         x=padding,
         y=back_y,
         width=200,

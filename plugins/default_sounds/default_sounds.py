@@ -3,7 +3,7 @@
 import logging
 import os
 from core.plugin import Plugin
-from ui.components.button import Button
+from ui.components.button import UIButton
 from setup.config import sounds, paths
 
 
@@ -26,7 +26,7 @@ class PluginImpl(Plugin):
         pass
 
     def on_event(self, event):
-        if isinstance(event, Button):
+        if isinstance(event, UIButton):
             sound_key = getattr(event, "sound_key", None) or "default_click"
             try:
                 self.app.context.sound_manager.play(sound_key)

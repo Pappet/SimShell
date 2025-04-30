@@ -8,11 +8,12 @@ import setup.config as Config
 import core.events.callbacks as Callbacks
 import core.events.event_handlers as EventHandlers
 from core.events.event_types import EventType
-from ui.components.button import Button
-from ui.components.label import Label
-from ui.components.panel import Panel
+from ui.components.button import UIButton
+from ui.components.label import UILabel
+from ui.components.panel import UIPanel
+from ui.components.image import UIImage
 from ui.components.checkbox import UICheckbox
-from ui.components.progressbar import ProgressBar
+from ui.components.progressbar import UIProgressBar
 from ui.ui_manager import UIManager
 from ui.layout.horizontal import HorizontalLayout
 from ui.layout.vertical import VerticalLayout
@@ -40,7 +41,7 @@ def create_game_ui(
     health_key = "health"
 
     # Title label
-    title_label = Label(
+    title_label = UILabel(
         text="Game Scene",
         x=0,
         y=0,
@@ -49,12 +50,12 @@ def create_game_ui(
     )
 
     # Energy UI Elements
-    energy_label = Label(
+    energy_label = UILabel(
         text=f"{energy_key.capitalize()}: {stat_manager.get(energy_key)}",
         x=0,
         y=0
     )
-    energy_bar = ProgressBar(
+    energy_bar = UIProgressBar(
         x=0,
         y=0,
         width=200,
@@ -63,7 +64,7 @@ def create_game_ui(
         max_value=stat_manager.get_max(energy_key),
         color_key="energy"
     )
-    energy_button_sub = Button(
+    energy_button_sub = UIButton(
         x=0, y=0,
         width=100, height=50,
         text="-10",
@@ -71,7 +72,7 @@ def create_game_ui(
         event_manager=event_manager,
         sound_key="sup_click"
     )
-    energy_button_add = Button(
+    energy_button_add = UIButton(
         x=0, y=0,
         width=100, height=50,
         text="+10",
@@ -85,7 +86,7 @@ def create_game_ui(
     row_energy.add(energy_bar)
     row_energy.add(energy_button_add)
 
-    energy_panel = Panel(
+    energy_panel = UIPanel(
         x=10, y=10,
         width=340, height=100,
         background_key="panel_bg",
@@ -97,18 +98,18 @@ def create_game_ui(
     energy_panel.add(panel_col_energy)
 
     # Health UI Elements
-    health_label = Label(
+    health_label = UILabel(
         text=f"{health_key.capitalize()}: {stat_manager.get(health_key)}",
         x=0, y=0
     )
-    health_bar = ProgressBar(
+    health_bar = UIProgressBar(
         x=0, y=0,
         width=200, height=30,
         current_value=stat_manager.get(health_key),
         max_value=stat_manager.get_max(health_key),
         color_key="health"
     )
-    health_button_sub = Button(
+    health_button_sub = UIButton(
         x=0, y=0,
         width=100, height=50,
         text="-10",
@@ -116,7 +117,7 @@ def create_game_ui(
         event_manager=event_manager,
         sound_key="sup_click"
     )
-    health_button_add = Button(
+    health_button_add = UIButton(
         x=0, y=0,
         width=100, height=50,
         text="+10",
@@ -130,7 +131,7 @@ def create_game_ui(
     row_health.add(health_bar)
     row_health.add(health_button_add)
 
-    health_panel = Panel(
+    health_panel = UIPanel(
         x=10, y=120,
         width=340, height=100,
         background_key="panel_bg",
@@ -142,7 +143,7 @@ def create_game_ui(
     health_panel.add(panel_col_health)
 
     # Back button to return to the main menu
-    back_button = Button(
+    back_button = UIButton(
         x=0, y=0,
         width=200, height=40,
         text="Zurück zum Menü",
@@ -161,8 +162,6 @@ def create_game_ui(
         checked=True,
         callback=on_toggle
     )
-
-    
 
     # Main vertical layout for the scene
     main_layout = VerticalLayout(x=200, y=200, spacing=20, align="center")
