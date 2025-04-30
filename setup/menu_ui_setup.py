@@ -59,14 +59,6 @@ def create_main_menu_ui(
         event_manager=event_manager
     )
 
-    retro_button = UIButton(
-        x=0, y=0,
-        width=200, height=50,
-        text="Retro Thema wechseln",
-        callback=lambda: Callbacks.set_retro(),
-        event_manager=event_manager
-    )
-
     plugins_button = UIButton(
         x=0, y=0,
         width=200, height=50,
@@ -88,7 +80,6 @@ def create_main_menu_ui(
     layout.add(title_label)
     layout.add(start_button)
     layout.add(theme_button)
-    layout.add(retro_button)
     layout.add(plugins_button)
     layout.add(exit_button)
 

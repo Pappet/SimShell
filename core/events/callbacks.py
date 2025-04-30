@@ -53,18 +53,6 @@ def toggle_theme() -> None:
     logger.info("Toggling theme from %s to %s.", current, new)
     set_theme(new)
 
-
-def set_retro() -> None:
-    """
-    Set the UI theme to 'retro' style.
-
-    Logs the change and forces the 'retro' theme.
-    """
-    current = get_theme_name()
-    logger.info("Toggling theme from %s to 'retro'.", current)
-    set_theme("retro")
-
-
 def on_toggle(state):
     print(f"Checkbox is now: {state}")
 
