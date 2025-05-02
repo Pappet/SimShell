@@ -11,12 +11,12 @@ import logging
 
 from themes.theme_manager import get_color
 from core.scene_registry import scene
-from setup.game_ui_setup import create_game_ui
+from setup.daytime_ui_setup import create_game_ui
 
 logger = logging.getLogger(__name__)
 
 
-@scene("game")
+@scene("daytime")
 class GameScene:
     """
     Scene class for the primary game screen, displaying and updating player stats.

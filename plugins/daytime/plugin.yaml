@@ -1,0 +1,4 @@
+name: DaytimeCycle
+module: plugins.daytime.daytime
+enabled: true
+depends: []
