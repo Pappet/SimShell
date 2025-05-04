@@ -76,10 +76,10 @@ class UITable(UIElement):
         dx = self.x
         for idx, text in enumerate(self.headers):
             # Create a label with padding inside the header cell
-            lbl = UILabel(
-                text=text,
+            lbl = UILabel(                
                 x=dx + 5,
                 y=self.y + 5,
+                text=text,
                 font_size=self.font_size,
                 font_name=self.font_name
             )
@@ -148,10 +148,10 @@ class UITable(UIElement):
                     cell.draw(surface)
                 else:
                     # Render primitive value as a Label
-                    text_lbl = UILabel(
-                        text=str(cell),
+                    text_lbl = UILabel(                        
                         x=dx + 5,
                         y=y_off + 5,
+                        text=str(cell),
                         font_size=self.font_size,
                         font_name=self.font_name
                     )

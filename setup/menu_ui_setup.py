@@ -33,10 +33,10 @@ def create_main_menu_ui(
     layout = VerticalLayout(x=300, y=100, spacing=10, align="center")
 
     # Title label
-    title_label = UILabel(
-        "Hauptmenü",
+    title_label = UILabel(        
         x=0,
         y=0,
+        text="Hauptmenü",
         font_size=Config.fonts["title"]["size"],
         font_name=Config.fonts["title"]["name"]
     )

@@ -13,7 +13,6 @@ import setup.config as Config
 from core.debug_console import DebugConsole
 from core.debug_console_handler import DebugConsoleHandler
 from core.app import GameApp
-from themes.theme_manager import get_color
 
 
 def setup_logging(debug_console: DebugConsole) -> None:

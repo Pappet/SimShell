@@ -14,6 +14,7 @@ from core.stat_manager import StatManager
 from core.events.event_manager import EventManager
 from core.plugin_manager import PluginManager
 from core.sound_manager import SoundManager
+from ui.ui_manager import UIManager
 
 logger = logging.getLogger(__name__)
 
@@ -42,6 +43,8 @@ class GameContext:
 
         # Sound system: handles loading and playing sound effects/music
         self.sound_manager = SoundManager()
+
+        self.ui_manager = UIManager()
 
         # Keep a reference to the plugin manager for extension hooks
         self.plugin_manager = plugin_manager

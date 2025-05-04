@@ -20,15 +20,16 @@ class PluginImpl(Plugin):
     def on_init(self):
         self.day_count = 1
         self.weekday_index = 0
-        self.ui = UIManager()
+        self.ui = self.app.context.ui_manager
 
         # Labels
         self.label_day = UILabel(
-            x=0, y=0,
+            x=150, y=150,
             text=f"Day: {self.day_count}"
         )
+
         self.label_weekday = UILabel(
-            x=0, y=0,
+            x=150, y=200,
             text=f"Weekday: {WEEKDAYS[self.weekday_index]}"
         )
 
@@ -50,7 +51,17 @@ class PluginImpl(Plugin):
 
         logger.info("[CalendarPlugin] Initialized")
 
+    def on_start(self):
+        return super().on_start()
+    
+    def on_event(self, event):
+        return super().on_event(event)
+    
+    def on_update(self,dt):
+        return super().on_update(dt)
+
     def on_render(self, surface):
-        # Draw at bottom right
-        w, h = surface.get_size()
-        self.ui.draw(surface, (w - 150, h - 60))
+        self.ui.draw(surface)
+
+    def on_shutdown(self):
+        return super().on_shutdown()

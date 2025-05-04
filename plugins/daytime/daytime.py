@@ -59,9 +59,10 @@ class PluginImpl(Plugin):
 
 
     def on_render(self, surface):
+        return super().on_event(surface)
         # Optional: Draw current time phase as text on screen (top right corner)
-        font = pygame.font.SysFont(Config.fonts["default"]["name"], Config.fonts["default"]["size"])
-        text = font.render(f"Time: {self.get_phase()}", True, get_color("foreground"))
+        #font = pygame.font.SysFont(Config.fonts["default"]["name"], Config.fonts["default"]["size"])
+        #text = font.render(f"Time: {self.get_phase()}", True, get_color("foreground"))
         #surface.blit(text, (surface.get_width() - 120, 10))
 
     def on_event(self, event):

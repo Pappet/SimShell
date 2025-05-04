@@ -42,20 +42,20 @@ def create_game_ui(
     health_key = "health"
 
     # Title label
-    title_label = UILabel(
+    title_label = UILabel(        
+        x=0, y=0,
         text="Game Scene",
-        x=0,
-        y=0,
         font_size=Config.fonts["title"]["size"],
         font_name=Config.fonts["title"]["name"]
     )
 
     # Energy UI Elements
-    energy_label = UILabel(
+    energy_label = UILabel(        
+        x=0,        
+        y=0,
         text=f"{energy_key.capitalize()}: {stat_manager.get(energy_key)}",
-        x=0,
-        y=0
     )
+
     energy_bar = UIProgressBar(
         x=0,
         y=0,
@@ -65,6 +65,7 @@ def create_game_ui(
         max_value=stat_manager.get_max(energy_key),
         color_key="energy"
     )
+
     energy_button_sub = UIButton(
         x=0, y=0,
         width=100, height=50,
@@ -73,6 +74,7 @@ def create_game_ui(
         event_manager=event_manager,
         sound_key="sup_click"
     )
+
     energy_button_add = UIButton(
         x=0, y=0,
         width=100, height=50,
@@ -82,7 +84,11 @@ def create_game_ui(
         sound_key="add_click"
     )
 
-    row_energy = HorizontalLayout(x=0, y=0, spacing=15)
+    row_energy = HorizontalLayout(
+        x=0, y=0, 
+        spacing=15
+    )
+
     row_energy.add(energy_button_sub)
     row_energy.add(energy_bar)
     row_energy.add(energy_button_add)
@@ -93,15 +99,21 @@ def create_game_ui(
         background_key="panel_bg",
         border_key="border"
     )
-    panel_col_energy = VerticalLayout(x=0, y=0, spacing=15, align="center")
+
+    panel_col_energy = VerticalLayout(
+        x=0, y=0, 
+        spacing=15, 
+        align="center"
+    )
+
     panel_col_energy.add(energy_label)
     panel_col_energy.add(row_energy)
     energy_panel.add(panel_col_energy)
 
     # Health UI Elements
-    health_label = UILabel(
-        text=f"{health_key.capitalize()}: {stat_manager.get(health_key)}",
-        x=0, y=0
+    health_label = UILabel(        
+        x=0, y=0,
+        text=f"{health_key.capitalize()}: {stat_manager.get(health_key)}"
     )
     health_bar = UIProgressBar(
         x=0, y=0,
@@ -127,7 +139,11 @@ def create_game_ui(
         sound_key="add_click"
     )
 
-    row_health = HorizontalLayout(x=0, y=0, spacing=15)
+    row_health = HorizontalLayout(
+        x=0, y=0, 
+        spacing=15
+    )
+
     row_health.add(health_button_sub)
     row_health.add(health_bar)
     row_health.add(health_button_add)
@@ -138,7 +154,13 @@ def create_game_ui(
         background_key="panel_bg",
         border_key="border"
     )
-    panel_col_health = VerticalLayout(x=0, y=0, spacing=15, align="center")
+
+    panel_col_health = VerticalLayout(
+        x=0, y=0, 
+        spacing=15, 
+        align="center"
+    )
+
     panel_col_health.add(health_label)
     panel_col_health.add(row_health)
     health_panel.add(panel_col_health)
@@ -153,12 +175,13 @@ def create_game_ui(
         sound_key="exit_click"
     )
 
-    text_label = UILabel("test", 0,0,)
-
+    text_label = UILabel(
+         x=0, y=0,
+         text="test"
+    )
 
     checkbox = UICheckbox(
-        x=50,
-        y=300,
+        x=50, y=300,
         label="Enable Music",
         checked=True,
         callback=Callbacks.on_toggle
@@ -171,18 +194,35 @@ def create_game_ui(
         on_enter=lambda new_text: Callbacks.update_label_text(text_label, new_text)
     )
 
-    veri = VerticalLayout(50, 100, 20, "center")
+    veri = VerticalLayout(
+        x=50, y=100, 
+        spacing=20, 
+        align="center"
+    )
 
-    hori = HorizontalLayout(x=0, y=0, spacing=20, align="center")
-    
+    hori = HorizontalLayout(
+        x=0, y=0, 
+        spacing=20, 
+        align="center"
+    )
     
     # Main vertical layout for the scene
-    main_layout = VerticalLayout(x=0, y=0, spacing=20, align="left")    
+    main_layout = VerticalLayout(
+        x=0, y=0, 
+        spacing=20, 
+        align="left"
+    )    
+    
     main_layout.add(input_box)
     main_layout.add(text_label)
     main_layout.add(checkbox)   
 
-    second_layout = VerticalLayout(x=0, y=0, spacing=20, align="right")
+    second_layout = VerticalLayout(
+        x=0, y=0, 
+        spacing=20, 
+        align="right"
+    )
+    
     second_layout.add(energy_panel)
     second_layout.add(health_panel)
 

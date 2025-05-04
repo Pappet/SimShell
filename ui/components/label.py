@@ -23,10 +23,10 @@ class UILabel(UIElement):
         color_key (str): Theme key defining the color of the text.
     """
     def __init__(
-        self,
-        text: str,
+        self,        
         x: int,
         y: int,
+        text: str,
         font_size: int = None,
         font_name: str = None
     ) -> None:

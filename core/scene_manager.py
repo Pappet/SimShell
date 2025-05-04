@@ -69,9 +69,11 @@ class SceneManager:
                 kwargs['exit_callback'] = self.app.exit_game
 
             # Instantiate the scene and cache it
-            scene = SceneFactory(**kwargs)
+            scene = SceneFactory(**kwargs)            
             self.scene_cache[key] = scene
-
+            
+        self.context.ui_manager = scene.ui
+        print(self.context.ui_manager)
         # Activate the scene
         self._activate(scene)
 

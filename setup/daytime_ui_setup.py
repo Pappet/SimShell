@@ -9,11 +9,18 @@ from plugins.daytime.callbacks import on_sleep_button_clicked, make_daytime_chan
 
 def create_game_ui(stat_manager, event_manager, switch_scene_callback, context):
     ui = UIManager()
-    layout = VerticalLayout(x=300,y=100)
+
+    layout = VerticalLayout(
+        x=300, y=100
+    )
+
     initial_phase = context.get_day_phase() if hasattr(context, "get_day_phase") else "(unknown)"
 
     # Label zur Anzeige der aktuellen Tageszeit
-    time_label = UILabel(x=0, y=0, text=f"Time: {initial_phase}")
+    time_label = UILabel(
+        x=0, y=0, 
+        text=f"Time: {initial_phase}"
+    )
 
     sleep_button = UIButton(
         x=0, y=0, 
@@ -32,6 +39,7 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, context):
         event_manager=event_manager,
         sound_key="exit_click"
     )
+    
     layout.add(time_label)
     layout.add(sleep_button)
     layout.add(back_button)
