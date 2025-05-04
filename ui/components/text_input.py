@@ -150,7 +150,7 @@ class UITextInput(UIElement):
             self.cursor_visible = True
             self.cursor_timer = pygame.time.get_ticks()
             logger.debug("UITextInput focus changed: %s", self.focused)
-
+                    
         # Keyboard input only when focused
         if self.focused and event.type == pygame.KEYDOWN:
             if event.key == pygame.K_BACKSPACE:
