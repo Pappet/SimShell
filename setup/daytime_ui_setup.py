@@ -8,7 +8,7 @@ from ui.ui_manager import UIManager
 from plugins.daytime.callbacks import on_sleep_button_clicked, make_daytime_changed_handler
 
 def create_game_ui(stat_manager, event_manager, switch_scene_callback, context):
-    ui = UIManager()
+    ui = UIManager(event_manager)
 
     layout = VerticalLayout(
         x=300, y=100
@@ -26,8 +26,7 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, context):
         x=0, y=0, 
         width=200, height=100, 
         text="Sleep (Go to Morning)", 
-        callback=lambda: on_sleep_button_clicked(context), 
-        event_manager=event_manager
+        callback=lambda: on_sleep_button_clicked(context)
     )
     
     # Back button to return to the main menu
@@ -36,10 +35,9 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, context):
         width=200, height=40,
         text="Zurück zum Menü",
         callback=lambda: switch_scene_callback("menu"),
-        event_manager=event_manager,
         sound_key="exit_click"
     )
-    
+
     layout.add(time_label)
     layout.add(sleep_button)
     layout.add(back_button)

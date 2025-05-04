@@ -29,7 +29,7 @@ def create_plugin_manager_ui(
     Returns:
         UIManager: Configured UI manager for plugin manager.
     """
-    ui = UIManager()
+    ui = UIManager(event_manager)
 
         # Calculate full-width table with padding
     padding = Config.ui['default']['padding']
@@ -61,8 +61,7 @@ def create_plugin_manager_ui(
             width=column_widths[2] - 10,
             height=table.row_height - 10,
             text="Toggle",
-            callback=lambda m=meta: toggle_callback(m),
-            event_manager=event_manager
+            callback=lambda m=meta: toggle_callback(m)
         )
         table.add_row([meta['name'], status, toggle_btn])
 
@@ -77,7 +76,6 @@ def create_plugin_manager_ui(
         height=40,
         text="Back to Menu",
         callback=lambda: switch_scene_callback("menu"),
-        event_manager=event_manager,
         sound_key="exit_click"
     )
     ui.add(back_button)

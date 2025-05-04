@@ -36,7 +36,7 @@ def create_game_ui(
     Returns:
         UIManager: Configured UI manager for the game scene.
     """
-    ui = UIManager()
+    ui = UIManager(event_manager)
 
     energy_key = "energy"
     health_key = "health"
@@ -71,7 +71,6 @@ def create_game_ui(
         width=100, height=50,
         text="-10",
         callback=lambda: Callbacks.modify_stat(stat_manager, energy_key, -10),
-        event_manager=event_manager,
         sound_key="sup_click"
     )
 
@@ -80,7 +79,6 @@ def create_game_ui(
         width=100, height=50,
         text="+10",
         callback=lambda: Callbacks.modify_stat(stat_manager, energy_key, 10),
-        event_manager=event_manager,
         sound_key="add_click"
     )
 
@@ -127,7 +125,6 @@ def create_game_ui(
         width=100, height=50,
         text="-10",
         callback=lambda: Callbacks.modify_stat(stat_manager, health_key, -10),
-        event_manager=event_manager,
         sound_key="sup_click"
     )
     health_button_add = UIButton(
@@ -135,7 +132,6 @@ def create_game_ui(
         width=100, height=50,
         text="+10",
         callback=lambda: Callbacks.modify_stat(stat_manager, health_key, 10),
-        event_manager=event_manager,
         sound_key="add_click"
     )
 
@@ -171,7 +167,6 @@ def create_game_ui(
         width=200, height=40,
         text="Zurück zum Menü",
         callback=lambda: switch_scene_callback("menu"),
-        event_manager=event_manager,
         sound_key="exit_click"
     )
 

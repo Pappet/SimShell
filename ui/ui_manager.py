@@ -24,10 +24,11 @@ class UIManager:
     - Update element states each frame
     - Draw elements onto the rendering surface
     """
-    def __init__(self) -> None:
+    def __init__(self, event_manager) -> None:
         """
         Initialize the UIManager with an empty element registry and no focus.
         """
+        self.event_manager = event_manager
         self.elements: list[UIElement] = []
         # Index of currently focused element in focusable list, -1 if none
         self.focus_index = -1
@@ -40,6 +41,8 @@ class UIManager:
         Args:
             element (UIElement): The UI component to add.
         """
+        if hasattr(element, "event_manager"):
+            element.event_manager = self.event_manager
         self.elements.append(element)
         logger.debug("Added UI element: %s", element)
 

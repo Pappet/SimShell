@@ -44,7 +44,7 @@ class GameContext:
         # Sound system: handles loading and playing sound effects/music
         self.sound_manager = SoundManager()
 
-        self.ui_manager = UIManager()
+        self.ui_manager = UIManager(self.event_manager)
 
         # Keep a reference to the plugin manager for extension hooks
         self.plugin_manager = plugin_manager

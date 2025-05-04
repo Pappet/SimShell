@@ -38,7 +38,6 @@ class UIButton(UIElement):
         height: int,
         text: str,
         callback: callable,
-        event_manager=None,
         sound_key: str = None
     ) -> None:
         """
@@ -57,7 +56,7 @@ class UIButton(UIElement):
         super().__init__(x, y, width, height)
         self.text = text
         self.callback = callback
-        self.event_manager = event_manager
+        self.event_manager = None
         self.sound_key = sound_key
         self.hovered = False
         self.focusable = True

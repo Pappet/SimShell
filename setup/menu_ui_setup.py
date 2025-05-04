@@ -27,7 +27,7 @@ def create_main_menu_ui(
     Returns:
         UIManager: Configured UI manager for the main menu.
     """
-    ui = UIManager()
+    ui = UIManager(event_manager)
 
     # Main vertical layout for menu items
     layout = VerticalLayout(x=300, y=100, spacing=10, align="center")
@@ -47,7 +47,6 @@ def create_main_menu_ui(
         width=200, height=50,
         text="Spiel starten",
         callback=lambda: switch_scene_callback("game"),
-        event_manager=event_manager,
         sound_key="start_click"
     )
 
@@ -56,7 +55,6 @@ def create_main_menu_ui(
         width=200, height=50,
         text="Daytime starten",
         callback=lambda: switch_scene_callback("daytime"),
-        event_manager=event_manager,
         sound_key="start_click"
     )
 
@@ -65,7 +63,6 @@ def create_main_menu_ui(
         width=200, height=50,
         text="Thema wechseln",
         callback=lambda: Callbacks.toggle_theme(),
-        event_manager=event_manager
     )
 
     plugins_button = UIButton(
@@ -73,7 +70,6 @@ def create_main_menu_ui(
         width=200, height=50,
         text="Plugins Manager",
         callback=lambda: switch_scene_callback("plugins"),
-        event_manager=event_manager
     )
 
     exit_button = UIButton(
@@ -81,7 +77,6 @@ def create_main_menu_ui(
         width=200, height=50,
         text="Beenden",
         callback=exit_callback,
-        event_manager=event_manager,
         sound_key="exit_click"
     )
 
