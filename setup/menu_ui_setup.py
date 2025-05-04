@@ -51,6 +51,15 @@ def create_main_menu_ui(
         sound_key="start_click"
     )
 
+    daytime_button = UIButton(
+        x=0, y=0,
+        width=200, height=50,
+        text="Daytime starten",
+        callback=lambda: switch_scene_callback("daytime"),
+        event_manager=event_manager,
+        sound_key="start_click"
+    )
+
     theme_button = UIButton(
         x=0, y=0,
         width=200, height=50,
@@ -79,6 +88,7 @@ def create_main_menu_ui(
     # Add all elements to the layout
     layout.add(title_label)
     layout.add(start_button)
+    layout.add(daytime_button)
     layout.add(theme_button)
     layout.add(plugins_button)
     layout.add(exit_button)

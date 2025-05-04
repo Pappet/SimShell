@@ -1,0 +1,5 @@
+name: Calendar
+module: plugins.calendar.calendar
+enabled: true
+depends:
+- DaytimeCycle

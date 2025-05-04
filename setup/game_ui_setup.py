@@ -22,7 +22,8 @@ from ui.components.text_input import UITextInput
 def create_game_ui(
     stat_manager,
     event_manager,
-    switch_scene_callback: callable
+    switch_scene_callback: callable,
+    context
 ) -> UIManager:
     """
     Create and return the UI for the main game scene with stat bars and controls.

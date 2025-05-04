@@ -20,3 +20,4 @@ class EventType(Enum):
     UI_BUTTON_CLICKED = auto()
     ENERGY_CHANGED = auto()
     HEALTH_CHANGED = auto()
+    DAYTIME_CHANGED = auto()
