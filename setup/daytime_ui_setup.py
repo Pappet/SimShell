@@ -5,7 +5,7 @@ from ui.components.button import UIButton
 from ui.layout.vertical import VerticalLayout
 from core.events.event_types import EventType
 from ui.ui_manager import UIManager
-from plugins.daytime.daytime_callbacks import on_sleep_button_clicked, make_daytime_changed_handler
+from plugins.daytime.callbacks import on_sleep_button_clicked, make_daytime_changed_handler
 
 def create_game_ui(stat_manager, event_manager, switch_scene_callback, context):
     ui = UIManager()
