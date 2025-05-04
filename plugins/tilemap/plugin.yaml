@@ -1,0 +1,4 @@
+name: TileMap
+module: plugins.tilemap.tilemap
+enabled: true
+depends: []

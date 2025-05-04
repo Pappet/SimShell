@@ -46,6 +46,8 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, context):
     handler = make_daytime_changed_handler(time_label)
     context.event_manager.register(EventType.DAYTIME_CHANGED, handler)
 
+    
+
     for element in layout.get_elements():
         ui.add(element)
 
