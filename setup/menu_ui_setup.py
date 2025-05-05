@@ -58,6 +58,14 @@ def create_main_menu_ui(
         sound_key="start_click"
     )
 
+    map_button = UIButton(
+        x=0, y=0,
+        width=200, height=50,
+        text="Tilemap starten",
+        callback=lambda: switch_scene_callback("tilemap"),
+        sound_key="start_click"
+    )
+
     theme_button = UIButton(
         x=0, y=0,
         width=200, height=50,
@@ -84,6 +92,7 @@ def create_main_menu_ui(
     layout.add(title_label)
     layout.add(start_button)
     layout.add(daytime_button)
+    layout.add(map_button)
     layout.add(theme_button)
     layout.add(plugins_button)
     layout.add(exit_button)

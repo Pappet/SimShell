@@ -5,8 +5,8 @@ from ui.components.button import UIButton
 from ui.layout.vertical import VerticalLayout
 from core.events.event_types import EventType
 from plugins.daytime.view import DaytimeLabel
-from plugins.calendar.view import CalendarLabel
 from ui.ui_manager import UIManager
+import setup.config as Config 
 from plugins.daytime.callbacks import on_sleep_button_clicked, make_daytime_changed_handler
 
 def create_game_ui(stat_manager, event_manager, switch_scene_callback, context):
@@ -18,12 +18,16 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, context):
         align="center"
     )
 
-    daytime_model = context.create_daytime()
-    daytime_label = DaytimeLabel(daytime_model, x=0, y=0)
-
-    cal_model = context.create_calendar()
-    cal_label = CalendarLabel(cal_model, x=0, y=0)
+    # Title label
+    title_label = UILabel(        
+        x=0, y=0,
+        text="TileMap Scene",
+        font_size=Config.fonts["title"]["size"],
+        font_name=Config.fonts["title"]["name"]
+    )
     
+    tile_map_model, map_view = context.create_tilemap(width=12, height=6, pos=(0, 0))
+
     # Back button to return to the main menu
     back_button = UIButton(
         x=0, y=0,
@@ -33,14 +37,10 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, context):
         sound_key="exit_click"
     )
 
-    layout.add(daytime_label)
-    layout.add(cal_label)
+    layout.add(title_label)
+    layout.add(map_view)
     layout.add(back_button)
     
-    # Register DAYTIME_CHANGED event listener
-    handler = make_daytime_changed_handler(daytime_label)
-    context.event_manager.register(EventType.DAYTIME_CHANGED, handler)
-
     for element in layout.get_elements():
         ui.add(element)
 
