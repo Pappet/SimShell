@@ -38,10 +38,13 @@ def create_game_ui(stat_manager, event_manager, switch_scene_callback, context):
         sound_key="exit_click"
     )
 
+    model, view = context.create_tilemap(width=12, height=6, pos=(180, 120))
+    
+
     layout.add(time_label)
     layout.add(sleep_button)
     layout.add(back_button)
-
+    layout.add(view)
     # Register DAYTIME_CHANGED event listener
     handler = make_daytime_changed_handler(time_label)
     context.event_manager.register(EventType.DAYTIME_CHANGED, handler)
