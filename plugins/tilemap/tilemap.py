@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 class PluginImpl(Plugin):
     def on_init(self):
         self.app.context.create_tilemap = self.create_tilemap
-        logger.info("[TileMapPlugin] Registered tilemap factory")
+        logger.debug("[TileMapPlugin] Registered tilemap factory")
 
     def on_start(self):
         return super().on_start()
@@ -28,7 +28,7 @@ class PluginImpl(Plugin):
         model = TileMapModel(width, height)
         x, y = pos  # 🛠️ Hier entpacken
         view = TileMapView(model, x, y)
-        logger.info(f"[TileMapPlugin] Tilemap created - w {width} / h {height} - pos {pos}")
+        logger.debug(f"[TileMapPlugin] Tilemap created - w {width} / h {height} - pos {pos}")
         return model, view
     
     def on_event(self, event):

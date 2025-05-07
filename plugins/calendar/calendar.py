@@ -15,7 +15,6 @@ class PluginImpl(Plugin):
     def on_init(self):
         self.model = CalendarModel(self.app.context)
         self.app.context.create_calendar = self.create_calendar
-        # Optional: globale Getter/Setter registrieren
         self.app.context.get_day = self.model.get_day
         self.app.context.get_weekday = self.model.get_weekday
 

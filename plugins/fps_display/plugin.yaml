@@ -1,4 +1,4 @@
 name: FPS-Anzeige
 module: plugins.fps_display.fps_display
-enabled: false
+enabled: true
 depends: []

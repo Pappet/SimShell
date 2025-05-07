@@ -15,9 +15,7 @@ class CalendarModel:
         )
 
     def _handle_daytime_changed(self, phase):
-        print("Event")
         if self.last_phase == "Night" and phase == "Morning":
-            print("CHANGE")
             self.day += 1
             self.weekday_index = (self.weekday_index + 1) % len(WEEKDAYS)
         self.last_phase = phase

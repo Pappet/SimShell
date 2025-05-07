@@ -73,7 +73,6 @@ class SceneManager:
             self.scene_cache[key] = scene
             
         self.context.ui_manager = scene.ui
-        print(self.context.ui_manager)
         # Activate the scene
         self._activate(scene)
 

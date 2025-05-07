@@ -18,7 +18,7 @@ class TileMapView(UIElement):
         super().__init__(x, y, width, height)
 
         self.model = model
-        logger.info("[TileMapPlugin] TileMap View Initialized")
+        logger.debug("[TileMapPlugin] TileMap View Initialized")
         
 
     def draw(self, surface):

@@ -11,7 +11,6 @@ logger = logging.getLogger(__name__)
 
 class PluginImpl(Plugin):
     def on_init(self):
-        print("INIT")
         sounds_dir = paths.get('sounds_dir', os.path.join('assets', 'sounds'))
 
         for key, filename in sounds.items():
@@ -21,6 +20,7 @@ class PluginImpl(Plugin):
                 logger.debug(f"Loaded sound {key} from {full_path}")
             except Exception as e:
                 logger.error(f"Fehler beim Laden von Sound '{key}': {e}")
+        logger.debug(f"[DefaultSoundsPlugin] initalized")
 
     def on_start(self):
         pass

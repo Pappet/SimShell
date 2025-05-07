@@ -9,7 +9,6 @@ class CalendarLabel(UILabel):
         model.context.event_manager.register(EventType.DAYTIME_CHANGED, self._on_day_changed)
 
     def _format_text(self):
-        print(f"{self.model.get_weekday()} (Day {self.model.get_day()})")
         return f"{self.model.get_weekday()} (Day {self.model.get_day()})"
 
     def _on_day_changed(self, phase):
